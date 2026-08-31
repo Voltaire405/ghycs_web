@@ -119,5 +119,17 @@ El visitante que se identifica y deja ver qué tipo de prestador es y qué neces
 _Evitar_: cliente, contacto, interesado, lead
 
 **Solicitud**:
-Lo que el prospecto envía al gestor para pedir una asesoría o un acompañamiento. Es la unidad de trabajo que el sitio produce.
+Lo que el prospecto envía al gestor para pedir una asesoría o un acompañamiento, con la cita ya agendada. Es la unidad de trabajo que el sitio produce y aquello de lo que la cita depende: la solicitud sigue existiendo aunque la cita se cancele.
 _Evitar_: formulario, contacto, mensaje, cotización
+
+**Cita**:
+El primer encuentro entre el prospecto y el gestor, sin costo y por videollamada, donde se define qué necesita y qué servicio le corresponde. Es un atributo de la solicitud, no algo que exista por su cuenta. Puede estar agendada, cancelada, atendida o no asistió. Nunca es la asesoría: la cita no se cobra y la asesoría sí.
+_Evitar_: cita de diagnóstico, reunión, consulta, agendamiento, sesión
+
+**Asistente**:
+El agente conversacional del sitio. Responde sobre la oferta del gestor y deriva a una solicitud cuando la pregunta exige interpretar la norma, decir qué estándares aplican o dar plazos y cifras. Ese análisis no lo hace: es el servicio que se vende.
+_Evitar_: chatbot, bot, chat, IA, agente
+
+**Disponibilidad**:
+Los horarios en que el prospecto puede agendar una cita. La define el gestor a partir de su horario base, descontando la ocupación de su calendario. No es lo mismo que la ocupación: el calendario dice cuándo el gestor está tomado, no cuándo atiende.
+_Evitar_: agenda, cupos, horarios libres, calendario
