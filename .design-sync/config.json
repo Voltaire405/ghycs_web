@@ -1,0 +1,6 @@
+{
+  "projectId": "c06b9914-2b41-4102-aedf-4c62435a9c01",
+  "shape": "foundations",
+  "readmeHeader": ".design-sync/conventions.md",
+  "notes": "Sin librería de componentes: el sync sube tokens, styles.css y guidelines. Ver NOTES.md."
+}

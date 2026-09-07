@@ -1,0 +1,341 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap");
+
+/* ============================================================
+   GHYCS — Design tokens (versión plana para Claude Design)
+   Fuente de verdad: docs/specs/ghycs-tokens.css (Tailwind v4).
+   Aquí @theme está aplanado a :root para que corra en el navegador.
+   ============================================================ */
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img, svg, video { max-width: 100%; height: auto; display: block; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 0; background: none; }
+}
+
+
+/* ============================================================
+   GHYCS — Design tokens
+   Paleta: azul petróleo · Tipografía: Lora + Source Sans 3
+   Tailwind v4 (CSS-first). Importar en app/globals.css
+   ============================================================ */
+
+:root {
+  /* ---------- Tipografía ---------- */
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", monospace;
+
+  --text-caption: 0.8125rem;      /* 13px */
+  --text-caption--line-height: 1.5;
+  --text-sm: 0.875rem;            /* 14px */
+  --text-sm--line-height: 1.6;
+  --text-base: 1rem;              /* 16px */
+  --text-base--line-height: 1.65;
+  --text-lead: 1.125rem;          /* 18px */
+  --text-lead--line-height: 1.7;
+  --text-h3: 1.375rem;            /* 22px */
+  --text-h3--line-height: 1.35;
+  --text-h2: 1.75rem;             /* 28px */
+  --text-h2--line-height: 1.28;
+  --text-h1: 2.25rem;             /* 36px */
+  --text-h1--line-height: 1.2;
+  --text-display: 3rem;           /* 48px */
+  --text-display--line-height: 1.12;
+
+  /* ---------- Escala petróleo (marca) ---------- */
+  --color-petroleo-50: #edf5f4;
+  --color-petroleo-100: #d3e8e5;
+  --color-petroleo-200: #a9d6d0;
+  --color-petroleo-300: #7bbfb7;
+  --color-petroleo-400: #4ea79d;
+  --color-petroleo-500: #2a9187;
+  --color-petroleo-600: #17756e;
+  --color-petroleo-700: #115e59;
+  --color-petroleo-800: #0d4a48;
+  --color-petroleo-900: #0b3b3c;
+  --color-petroleo-950: #062626;
+
+  /* ---------- Neutrales (con matiz petróleo) ---------- */
+  --color-piedra-0: #ffffff;
+  --color-piedra-50: #f7faf9;
+  --color-piedra-100: #eef3f3;
+  --color-piedra-200: #dce5e5;
+  --color-piedra-300: #c3d0d0;
+  --color-piedra-400: #9aacab;
+  --color-piedra-500: #5f7373;
+  --color-piedra-600: #465958;
+  --color-piedra-700: #2f4746;
+  --color-piedra-800: #1e3130;
+  --color-piedra-900: #12201f;
+
+  /* ---------- Semánticos ---------- */
+  --color-info-50: #eff5ff;
+  --color-info-200: #c3d7fb;
+  --color-info-600: #1d4ed8;
+  --color-info-800: #1e3a8a;
+
+  --color-alerta-50: #fef6ec;
+  --color-alerta-200: #fbdcae;
+  --color-alerta-600: #b45309;
+  --color-alerta-800: #7c3a06;
+
+  --color-error-50: #fdeeee;
+  --color-error-200: #f7c9c9;
+  --color-error-600: #b91c1c;
+  --color-error-800: #7f1414;
+
+  /* ---------- Radios ---------- */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  /* ---------- Sombras ---------- */
+  --shadow-sutil: 0 1px 2px rgba(11, 59, 60, 0.06);
+  --shadow-elevada: 0 4px 16px rgba(11, 59, 60, 0.10);
+}
+
+/* ============================================================
+   Tokens semánticos — modo claro
+   Referencia estas variables en los componentes, no la escala.
+   ============================================================ */
+
+:root {
+  --superficie-pagina: var(--color-piedra-50);
+  --superficie: var(--color-piedra-0);
+  --superficie-suave: var(--color-piedra-100);
+  --superficie-marca: var(--color-petroleo-50);
+
+  --texto-titular: var(--color-petroleo-900);
+  --texto-cuerpo: var(--color-piedra-700);
+  --texto-apoyo: var(--color-piedra-500);
+  --texto-invertido: var(--color-piedra-0);
+
+  --borde: var(--color-piedra-200);
+  --borde-fuerte: var(--color-piedra-300);
+  --borde-marca: var(--color-petroleo-500);
+
+  /* Acción primaria — blanco sobre 700 = 7.5:1 */
+  --accion: var(--color-petroleo-700);
+  --accion-hover: var(--color-petroleo-800);
+  --accion-activa: var(--color-petroleo-900);
+  --accion-texto: var(--color-piedra-0);
+
+  /* Enlaces — 600 sobre blanco = 5.5:1 */
+  --enlace: var(--color-petroleo-600);
+  --enlace-hover: var(--color-petroleo-800);
+
+  /* Estados. El éxito usa la marca: no hay verde en el sistema. */
+  --exito-fondo: var(--color-petroleo-50);
+  --exito-borde: var(--color-petroleo-300);
+  --exito-texto: var(--color-petroleo-800);
+
+  --alerta-fondo: var(--color-alerta-50);
+  --alerta-borde: var(--color-alerta-200);
+  --alerta-texto: var(--color-alerta-800);
+
+  --error-fondo: var(--color-error-50);
+  --error-borde: var(--color-error-200);
+  --error-texto: var(--color-error-800);
+
+  --info-fondo: var(--color-info-50);
+  --info-borde: var(--color-info-200);
+  --info-texto: var(--color-info-800);
+
+  --foco: var(--color-petroleo-600);
+
+  --medida: 68ch;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --superficie-pagina: var(--color-petroleo-950);
+    --superficie: #0e2f30;
+    --superficie-suave: #123a3b;
+    --superficie-marca: #0d4a48;
+
+    --texto-titular: var(--color-petroleo-50);
+    --texto-cuerpo: #c8dad8;
+    --texto-apoyo: #8aa3a1;
+    --texto-invertido: var(--color-petroleo-950);
+
+    --borde: #1d4746;
+    --borde-fuerte: #2a5a58;
+    --borde-marca: var(--color-petroleo-400);
+
+    --accion: var(--color-petroleo-400);
+    --accion-hover: var(--color-petroleo-300);
+    --accion-activa: var(--color-petroleo-200);
+    --accion-texto: var(--color-petroleo-950);
+
+    --enlace: var(--color-petroleo-300);
+    --enlace-hover: var(--color-petroleo-200);
+
+    --exito-fondo: #0d4a48;
+    --exito-borde: var(--color-petroleo-600);
+    --exito-texto: var(--color-petroleo-100);
+
+    --alerta-fondo: #3d2607;
+    --alerta-borde: #7c3a06;
+    --alerta-texto: #fbdcae;
+
+    --error-fondo: #3d1010;
+    --error-borde: #7f1414;
+    --error-texto: #f7c9c9;
+
+    --info-fondo: #142a5c;
+    --info-borde: #1e3a8a;
+    --info-texto: #c3d7fb;
+
+    --foco: var(--color-petroleo-300);
+  }
+}
+
+/* Puente hacia utilidades Tailwind: bg-superficie, text-cuerpo, etc. */
+:root {
+  --color-superficie-pagina: var(--superficie-pagina);
+  --color-superficie: var(--superficie);
+  --color-superficie-suave: var(--superficie-suave);
+  --color-superficie-marca: var(--superficie-marca);
+  --color-titular: var(--texto-titular);
+  --color-cuerpo: var(--texto-cuerpo);
+  --color-apoyo: var(--texto-apoyo);
+  --color-invertido: var(--texto-invertido);
+  --color-borde: var(--borde);
+  --color-borde-fuerte: var(--borde-fuerte);
+  --color-accion: var(--accion);
+  --color-accion-hover: var(--accion-hover);
+  --color-enlace: var(--enlace);
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--superficie-pagina);
+    color: var(--texto-cuerpo);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--texto-titular);
+    text-wrap: balance;
+  }
+
+  h1 { font-size: var(--text-h1); line-height: 1.2; letter-spacing: -0.011em; }
+  h2 { font-size: var(--text-h2); line-height: 1.28; letter-spacing: -0.008em; }
+  h3 { font-size: var(--text-h3); line-height: 1.35; }
+
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-base);
+    color: var(--texto-titular);
+  }
+
+  p { text-wrap: pretty; }
+
+  a {
+    color: var(--enlace);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+  a:hover { color: var(--enlace-hover); }
+
+  :focus-visible {
+    outline: 2px solid var(--foco);
+    outline-offset: 2px;
+  }
+
+  hr { border: 0; border-top: 1px solid var(--borde); }
+}
+
+@layer components {
+  /* Ancho de línea legible para textos largos (política de datos, /nosotros) */
+  .prosa { max-width: var(--medida); }
+
+  .btn-primario {
+    background-color: var(--accion);
+    color: var(--accion-texto);
+    font-weight: 600;
+    font-size: var(--text-base);
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-md);
+    transition: background-color 120ms ease;
+  }
+  .btn-primario:hover { background-color: var(--accion-hover); }
+  .btn-primario:active { background-color: var(--accion-activa); }
+  .btn-primario:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .btn-secundario {
+    background-color: transparent;
+    color: var(--texto-titular);
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border: 1px solid var(--borde-fuerte);
+    border-radius: var(--radius-md);
+  }
+  .btn-secundario:hover { background-color: var(--superficie-suave); }
+
+  .btn-destructivo {
+    background-color: transparent;
+    color: var(--error-texto);
+    font-weight: 600;
+    padding: 0.625rem 1.25rem;
+    border: 1px solid var(--error-borde);
+    border-radius: var(--radius-md);
+  }
+  .btn-destructivo:hover { background-color: var(--error-fondo); }
+
+  .tarjeta {
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+  }
+
+  .campo {
+    width: 100%;
+    background-color: var(--superficie);
+    color: var(--texto-cuerpo);
+    border: 1px solid var(--borde-fuerte);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 0.75rem;
+    min-height: 2.75rem;
+  }
+  .campo::placeholder { color: var(--texto-apoyo); }
+
+  .insignia {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--text-caption);
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-full);
+    border: 1px solid;
+  }
+  .insignia-agendada { background: var(--exito-fondo); color: var(--exito-texto); border-color: var(--exito-borde); }
+  .insignia-cancelada { background: var(--error-fondo); color: var(--error-texto); border-color: var(--error-borde); }
+  .insignia-pendiente { background: var(--alerta-fondo); color: var(--alerta-texto); border-color: var(--alerta-borde); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

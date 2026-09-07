@@ -1,0 +1,3 @@
+/* Punto de entrada del sistema visual GHYCS.
+   Todo lo que un diseño recibe llega por este cierre de @import. */
+@import "./tokens/ghycs.css";
