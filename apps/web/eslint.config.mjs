@@ -3,8 +3,10 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 /** Fronteras de SRD §3.1: cada capa solo importa de las capas que la tabla le permite (RS-R-007). */
+// Las pruebas quedan fuera: por definición componen capas con implementaciones falsas.
 const frontera = (files, prohibido, message) => ({
   files,
+  ignores: ["**/*.test.*"],
   rules: { "no-restricted-imports": ["error", { patterns: [{ regex: prohibido, message }] }] },
 });
 

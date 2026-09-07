@@ -1,0 +1,27 @@
+import { consultarDisponibilidad } from "./aplicacion/consultar-disponibilidad";
+import { crearSolicitud } from "./aplicacion/crear-solicitud";
+import { relojDelSistema, repositorioEnMemoria } from "./infraestructura/falsos";
+import type { Ocupacion } from "./dominio/puertos";
+import { diaEnBogota } from "./dominio/disponibilidad";
+import { leerHorarioBase } from "./infraestructura/horario-base";
+
+/**
+ * Composición del módulo. Fase 1: ocupación y repositorio en memoria, con una ocupación
+ * de muestra para que el estado «horario ocupado» sea visible.
+ */
+const horario = leerHorarioBase();
+const reloj = relojDelSistema;
+
+/** Muestra: el gestor tiene ocupada la media mañana de todos los días. */
+const ocupacion: Ocupacion = {
+  async consultar(desde) {
+    const dia = diaEnBogota(desde);
+    return [{ inicio: new Date(`${dia}T09:00:00-05:00`), fin: new Date(`${dia}T11:00:00-05:00`) }];
+  },
+};
+const repositorio = repositorioEnMemoria(horario.duracionMinutos);
+
+export const casos = {
+  consultarDisponibilidad: consultarDisponibilidad({ ocupacion, repositorio, reloj, horario }),
+  crearSolicitud: crearSolicitud({ repositorio, ocupacion, reloj, horario }),
+};
