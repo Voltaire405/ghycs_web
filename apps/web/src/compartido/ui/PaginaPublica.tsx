@@ -23,7 +23,7 @@ export function PaginaPublica({ children }: { children: ReactNode }) {
             <Link href="/politica-de-datos">Política de tratamiento de datos</Link>
             {/* ponytail: acceso provisional para la demo; el sitio no debe enlazar
                 el panel una vez exista la sesión real (#10). */}
-            <Link href="/login">Acceso del gestor</Link>
+            <Link href="/login">Acceso administrativo</Link>
           </div>
         </div>
       </footer>
