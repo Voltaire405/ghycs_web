@@ -314,8 +314,8 @@ Convenciones: `RS-<categoría>-<n>`, categorías I (interfaces externas), F (fun
 **Traza.** RP-F-011
 
 ### RS-F-009 · Comportamiento ante fallo de FreeBusy
-**Enunciado.** Cuando la consulta de ocupación falle, el sistema debe aplicar el comportamiento definido en TBD-1 del PRD.
-**Justificación.** ADR-0004 deja abierta la decisión; este requisito la reserva y el validador la reporta como pendiente.
+**Enunciado.** Cuando la consulta de ocupación falle, el sistema debe responder con disponibilidad vacía y el aviso «No es posible consultar la disponibilidad ahora. Intente más tarde.».
+**Justificación.** ADR-0004: sin ocupación conocida, cualquier horario ofrecido puede caer sobre un compromiso real del gestor.
 **Prioridad.** Obligatorio
 **Verificación.** Prueba
 **Traza.** RP-F-007, RP-NF-007
@@ -870,7 +870,7 @@ RP-L-003, RP-L-004, RP-R-001 y RP-R-002 son restricciones sobre el contenido o s
 
 | ID | Pendiente | Requisitos afectados |
 |---|---|---|
-| TBD-1 | Comportamiento ante fallo de FreeBusy | RS-F-009 |
+| ~~TBD-1~~ | Cerrado en ADR-0004: sin ocupación conocida no se ofrece ningún horario | RS-F-009 |
 | TBD-2 | Cuenta del calendario (personal o de marca) | RS-I-006 |
 | TBD-3 | Presupuesto mensual y modelo del asistente | RS-F-027, RS-I-008 |
 | TBD-4 | Razón social y NIT | RS-F-034 |

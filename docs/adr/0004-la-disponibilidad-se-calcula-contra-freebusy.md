@@ -6,7 +6,7 @@ La alternativa era una tabla de bloqueos que el gestor alimentara desde `/admin`
 
 ## Consecuencias
 
-El sitio depende de Google para ofrecer horarios. Si FreeBusy no responde, no hay disponibilidad que mostrar; hay que decidir si se degrada a solicitud sin agenda o se muestra un error, y hoy no está definido.
+El sitio depende de Google para ofrecer horarios. Si FreeBusy no responde, no se ofrece ningún horario: `/solicitar` muestra «No es posible consultar la disponibilidad ahora. Intente más tarde.» y no permite enviar. Se descarta degradar al horario base sin ocupación porque produce exactamente la cita encima de un compromiso real que este ADR quiere evitar, y se descarta la solicitud sin cita porque la cita agendada es lo que define la solicitud (ADR-0003). *(Decidido el 2026-09-06 al fijar el MVP; cierra TBD-1.)*
 
 La consulta a FreeBusy no es el candado contra doble reserva: solo evita ofrecer horarios que Google ya sabe ocupados. El candado sigue siendo el índice único de la base de datos, según el ADR-0003.
 

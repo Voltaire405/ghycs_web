@@ -316,7 +316,7 @@ La etapa se considera cumplida cuando, en el entorno de producción:
 
 | ID | Pendiente | Impacto |
 |---|---|---|
-| TBD-1 | Comportamiento cuando la consulta de ocupación del calendario falla (ADR-0004 lo deja abierto) | RP-F-007, RP-NF-007 |
+| ~~TBD-1~~ | Cerrado en ADR-0004: si la consulta de ocupación falla no se ofrece ningún horario | RP-F-007, RP-NF-007 |
 | TBD-2 | Si la cita la atiende siempre el mismo socio o rotan | Define si el calendario es de una cuenta personal o de marca |
 | TBD-3 | Presupuesto mensual del asistente | Calibra RP-F-019 |
 | TBD-4 | Razón social y NIT para el pie de página | RP-L-002, RP-F-003 |
