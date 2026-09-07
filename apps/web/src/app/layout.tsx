@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Lora, Source_Sans_3 } from "next/font/google";
-import { PaginaPublica } from "@/compartido/ui/PaginaPublica";
 import "./globals.css";
 
 const lora = Lora({ subsets: ["latin"], variable: "--fuente-lora" });
@@ -16,7 +15,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es-CO" className={`${lora.variable} ${sourceSans.variable} h-full`}>
       <body className="min-h-full flex flex-col">
-        <PaginaPublica>{children}</PaginaPublica>
+        {children}
       </body>
     </html>
   );

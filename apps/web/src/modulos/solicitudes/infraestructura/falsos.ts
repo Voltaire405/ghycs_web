@@ -18,10 +18,7 @@ export function ocupacionEnMemoria(intervalos: Intervalo[] = [], falla = false):
   };
 }
 
-export function repositorioEnMemoria(
-  duracionMinutos: number,
-  guardadas: Solicitud[] = [],
-): RepositorioSolicitudes & { todas(): Solicitud[] } {
+export function repositorioEnMemoria(duracionMinutos: number, guardadas: Solicitud[] = []): RepositorioSolicitudes {
   return {
     async agendadas(desde, hasta) {
       // Solo la cancelación libera la hora; atendida y no asistió la conservan (RS-D-002).
@@ -35,18 +32,31 @@ export function repositorioEnMemoria(
         (s) => s.citaEstado !== "cancelada" && s.citaInicio.getTime() === nueva.citaInicio.getTime(),
       );
       if (tomada) return null;
-      const solicitud: Solicitud = { ...nueva, token: crypto.randomUUID(), creadaEn: new Date(), citaEstado: "agendada" };
+      const solicitud: Solicitud = {
+        ...nueva,
+        id: crypto.randomUUID(),
+        token: crypto.randomUUID(),
+        creadaEn: new Date(),
+        citaEstado: "agendada",
+        sincronizacion: "ok",
+        notasGestor: "",
+      };
       guardadas.push(solicitud);
       return solicitud;
+    },
+    async todas() {
+      return [...guardadas];
+    },
+    async porId(id) {
+      return guardadas.find((s) => s.id === id) ?? null;
     },
     async porToken(token) {
       return guardadas.find((s) => s.token === token) ?? null;
     },
     async actualizar(solicitud) {
-      const i = guardadas.findIndex((s) => s.token === solicitud.token);
-      if (i < 0) throw new Error(`solicitud desconocida: ${solicitud.token}`);
+      const i = guardadas.findIndex((s) => s.id === solicitud.id);
+      if (i < 0) throw new Error(`solicitud desconocida: ${solicitud.id}`);
       guardadas[i] = solicitud;
     },
-    todas: () => guardadas,
   };
 }

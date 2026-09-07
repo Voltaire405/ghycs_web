@@ -15,6 +15,12 @@ export interface RepositorioSolicitudes {
   /** Guarda la solicitud; devuelve `null` si la hora ya está tomada (RS-F-007). */
   guardar(nueva: SolicitudNueva): Promise<Solicitud | null>;
 
+  /** Todas las solicitudes; el orden lo pone el dominio (RS-F-018). */
+  todas(): Promise<Solicitud[]>;
+
+  /** Solicitud por identificador interno; `null` si no existe (RS-F-021). */
+  porId(id: string): Promise<Solicitud | null>;
+
   /** Solicitud del enlace privado; `null` si el token no existe (RS-F-012). */
   porToken(token: string): Promise<Solicitud | null>;
 

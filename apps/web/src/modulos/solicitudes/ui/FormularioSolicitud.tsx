@@ -3,21 +3,12 @@
 import Link from "next/link";
 import { useActionState, useState } from "react";
 import { Aviso } from "@/compartido/ui/Aviso";
+import { Boton } from "@/compartido/ui/Boton";
+import { Area, Campo, Entrada, Seleccion } from "@/compartido/ui/Campo";
+import { MOMENTOS, opciones, TIPOS_PRESTADOR } from "./etiquetas";
 
 export type Hora = { valor: string; etiqueta: string };
 
-const TIPOS = [
-  { valor: "ips", etiqueta: "IPS" },
-  { valor: "profesional_independiente", etiqueta: "Profesional independiente" },
-  { valor: "objeto_social_diferente", etiqueta: "Entidad con objeto social diferente" },
-];
-
-const MOMENTOS = [
-  { valor: "habilitacion_inicial", etiqueta: "Habilitación inicial" },
-  { valor: "novedad", etiqueta: "Novedad en un servicio ya habilitado" },
-  { valor: "hallazgo", etiqueta: "Hallazgo de una visita de verificación" },
-  { valor: "cierre_servicio", etiqueta: "Cierre de un servicio" },
-];
 
 /** Formulario de solicitud: validación en el borde, envío condicionado a la autorización (RS-F-004, RS-F-037, RS-F-041). */
 export function FormularioSolicitud({
@@ -50,53 +41,47 @@ export function FormularioSolicitud({
         </div>
       </fieldset>
 
-      <label className="grid gap-1">
-        <span className="font-semibold text-titular">Nombre</span>
-        <input className="campo" name="nombre" required minLength={2} maxLength={120} autoComplete="name" />
-      </label>
+      <Campo etiqueta="Nombre">
+        <Entrada name="nombre" required minLength={2} maxLength={120} autoComplete="name" />
+      </Campo>
 
-      <label className="grid gap-1">
-        <span className="font-semibold text-titular">Correo</span>
-        <input className="campo" type="email" name="correo" required autoComplete="email" />
-      </label>
+      <Campo etiqueta="Correo">
+        <Entrada type="email" name="correo" required autoComplete="email" />
+      </Campo>
 
-      <label className="grid gap-1">
-        <span className="font-semibold text-titular">Teléfono</span>
-        <input className="campo" type="tel" name="telefono" required minLength={7} maxLength={20} autoComplete="tel" />
-      </label>
+      <Campo etiqueta="Teléfono">
+        <Entrada type="tel" name="telefono" required minLength={7} maxLength={20} autoComplete="tel" />
+      </Campo>
 
-      <label className="grid gap-1">
-        <span className="font-semibold text-titular">Tipo de prestador</span>
-        <select className="campo" name="tipoPrestador" required defaultValue="">
+      <Campo etiqueta="Tipo de prestador">
+        <Seleccion name="tipoPrestador" required defaultValue="">
           <option value="" disabled>
             Elija una opción
           </option>
-          {TIPOS.map((t) => (
-            <option key={t.valor} value={t.valor}>
-              {t.etiqueta}
+          {opciones(TIPOS_PRESTADOR).map((o) => (
+            <option key={o.valor} value={o.valor}>
+              {o.etiqueta}
             </option>
           ))}
-        </select>
-      </label>
+        </Seleccion>
+      </Campo>
 
-      <label className="grid gap-1">
-        <span className="font-semibold text-titular">Momento en el que se encuentra</span>
-        <select className="campo" name="momento" required defaultValue="">
+      <Campo etiqueta="Momento en el que se encuentra">
+        <Seleccion name="momento" required defaultValue="">
           <option value="" disabled>
             Elija una opción
           </option>
-          {MOMENTOS.map((m) => (
-            <option key={m.valor} value={m.valor}>
-              {m.etiqueta}
+          {opciones(MOMENTOS).map((o) => (
+            <option key={o.valor} value={o.valor}>
+              {o.etiqueta}
             </option>
           ))}
-        </select>
-      </label>
+        </Seleccion>
+      </Campo>
 
-      <label className="grid gap-1">
-        <span className="font-semibold text-titular">Descripción (opcional)</span>
-        <textarea className="campo" name="descripcion" rows={4} maxLength={2000} />
-      </label>
+      <Campo etiqueta="Descripción (opcional)">
+        <Area name="descripcion" rows={4} maxLength={2000} />
+      </Campo>
 
       <label className="flex min-h-11 cursor-pointer items-start gap-3 py-2">
         <input
@@ -119,9 +104,9 @@ export function FormularioSolicitud({
       )}
 
       <p>
-        <button type="submit" className="btn-primario" disabled={!autorizado || enviando}>
+        <Boton type="submit" disabled={!autorizado || enviando}>
           {enviando ? "Enviando…" : "Solicite su cita"}
-        </button>
+        </Boton>
       </p>
     </form>
   );

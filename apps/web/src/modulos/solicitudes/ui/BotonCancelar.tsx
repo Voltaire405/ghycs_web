@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { Aviso } from "@/compartido/ui/Aviso";
+import { Boton } from "@/compartido/ui/Boton";
 
 /** Cancelación desde el enlace privado; la regla ya la evaluó el dominio (RS-F-013). */
 export function BotonCancelar({
@@ -22,9 +23,9 @@ export function BotonCancelar({
         </Aviso>
       )}
       <p>
-        <button type="submit" className="btn-destructivo" disabled={cancelando}>
+        <Boton type="submit" tono="destructivo" disabled={cancelando}>
           {cancelando ? "Cancelando…" : "Cancele su cita"}
-        </button>
+        </Boton>
       </p>
     </form>
   );

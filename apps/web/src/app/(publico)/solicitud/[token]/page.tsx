@@ -1,21 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Aviso } from "@/compartido/ui/Aviso";
+import { Insignia } from "@/compartido/ui/Insignia";
 import { fechaLarga, horaCorta } from "@/compartido/ui/fecha";
-import type { EstadoCita } from "@/modulos/solicitudes/dominio/solicitud";
 import { casos } from "@/modulos/solicitudes/componer";
+import { ESTADOS_CITA } from "@/modulos/solicitudes/ui/etiquetas";
 import { BotonCancelar } from "@/modulos/solicitudes/ui/BotonCancelar";
 import { cancelarCita } from "./acciones";
 
 export const metadata = { title: "Su cita" };
-
-/** Insignia por estado; las variantes son las del sistema visual (`ds-bundle/README.md`). */
-const INSIGNIAS: Record<EstadoCita, { etiqueta: string; variante: string }> = {
-  agendada: { etiqueta: "Agendada", variante: "insignia-agendada" },
-  cancelada: { etiqueta: "Cancelada", variante: "insignia-cancelada" },
-  atendida: { etiqueta: "Atendida", variante: "insignia-agendada" },
-  no_asistio: { etiqueta: "No asistió", variante: "insignia-pendiente" },
-};
 
 export default async function Cita({ params, searchParams }: PageProps<"/solicitud/[token]">) {
   const { token } = await params;
@@ -47,9 +40,9 @@ export default async function Cita({ params, searchParams }: PageProps<"/solicit
         <div>
           <dt className="font-semibold text-titular">Estado</dt>
           <dd>
-            <span className={`insignia ${INSIGNIAS[solicitud.citaEstado].variante}`}>
-              {INSIGNIAS[solicitud.citaEstado].etiqueta}
-            </span>
+            <Insignia variante={ESTADOS_CITA[solicitud.citaEstado].variante}>
+              {ESTADOS_CITA[solicitud.citaEstado].etiqueta}
+            </Insignia>
           </dd>
         </div>
       </dl>

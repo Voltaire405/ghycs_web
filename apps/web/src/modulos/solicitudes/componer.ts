@@ -7,6 +7,10 @@ import { leerHorarioBase } from "./infraestructura/horario-base";
 import { solicitudesDeMuestra } from "./infraestructura/muestra";
 import { cancelarCita } from "./aplicacion/cancelar-cita";
 import { consultarPorToken } from "./aplicacion/consultar-por-token";
+import { listarSolicitudes } from "./aplicacion/listar-solicitudes";
+import { verSolicitud } from "./aplicacion/ver-solicitud";
+import { actualizarCita } from "./aplicacion/actualizar-cita";
+import { registrarNotas } from "./aplicacion/registrar-notas";
 
 /**
  * Composición del módulo. Fase 1: ocupación y repositorio en memoria, con una ocupación
@@ -30,4 +34,8 @@ export const casos = {
   crearSolicitud: crearSolicitud({ repositorio, ocupacion, reloj, horario }),
   consultarPorToken: consultarPorToken({ repositorio, reloj }),
   cancelarCita: cancelarCita({ repositorio, reloj }),
+  listarSolicitudes: listarSolicitudes({ repositorio }),
+  verSolicitud: verSolicitud({ repositorio }),
+  actualizarCita: actualizarCita({ repositorio }),
+  registrarNotas: registrarNotas({ repositorio }),
 };
