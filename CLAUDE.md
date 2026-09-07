@@ -24,7 +24,7 @@ Vocabulario canónico por defecto: `needs-triage`, `needs-info`, `ready-for-agen
 
 ### Interfaz
 
-Al escribir componentes, páginas, estilos o copy visible: tokens en `docs/specs/ghycs-tokens.css`. Ver `docs/agents/interfaz.md`.
+Al escribir componentes, páginas, estilos o copy visible: el sistema visual es `ds-bundle/`. Ver `docs/agents/interfaz.md`.
 
 ### Domain docs
 

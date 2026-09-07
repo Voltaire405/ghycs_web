@@ -14,5 +14,5 @@
 - Cuando existan componentes React reales, reevaluar: pasar a shape `package` con un
   `packages/ui` compilado, y este bundle a mano se retira.
 - `conventions.md` enumera variables y clases porque el agente de Claude Design no tiene
-  el repo. `docs/agents/interfaz.md` no las repite: apunta a `ghycs-tokens.css`. Si cambian
+  el repo. `docs/agents/interfaz.md` no las repite: apunta a `ds-bundle/`. Si cambian
   los tokens, `conventions.md` es lo que hay que revisar.
