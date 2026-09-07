@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GHYCS — Guía de estilos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: "Lora", Georgia, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", monospace;
+
+  --petroleo-50: #edf5f4;  --petroleo-100: #d3e8e5; --petroleo-200: #a9d6d0;
+  --petroleo-300: #7bbfb7; --petroleo-400: #4ea79d; --petroleo-500: #2a9187;
+  --petroleo-600: #17756e; --petroleo-700: #115e59; --petroleo-800: #0d4a48;
+  --petroleo-900: #0b3b3c; --petroleo-950: #062626;
+
+  --piedra-0: #ffffff;  --piedra-50: #f7faf9;  --piedra-100: #eef3f3;
+  --piedra-200: #dce5e5; --piedra-300: #c3d0d0; --piedra-400: #9aacab;
+  --piedra-500: #5f7373; --piedra-600: #465958; --piedra-700: #2f4746;
+  --piedra-800: #1e3130; --piedra-900: #12201f;
+
+  --info-50: #eff5ff;   --info-200: #c3d7fb;  --info-600: #1d4ed8;  --info-800: #1e3a8a;
+  --alerta-50: #fef6ec; --alerta-200: #fbdcae; --alerta-600: #b45309; --alerta-800: #7c3a06;
+  --error-50: #fdeeee;  --error-200: #f7c9c9;  --error-600: #b91c1c;  --error-800: #7f1414;
+
+  --radius-sm: 0.25rem; --radius-md: 0.5rem; --radius-lg: 0.75rem;
+  --sombra-sutil: 0 1px 2px rgba(11,59,60,.06);
+  --medida: 68ch;
+
+  --superficie-pagina: var(--piedra-50);
+  --superficie: var(--piedra-0);
+  --superficie-suave: var(--piedra-100);
+  --superficie-marca: var(--petroleo-50);
+  --texto-titular: var(--petroleo-900);
+  --texto-cuerpo: var(--piedra-700);
+  --texto-apoyo: var(--piedra-500);
+  --texto-invertido: var(--piedra-0);
+  --borde: var(--piedra-200);
+  --borde-fuerte: var(--piedra-300);
+  --borde-marca: var(--petroleo-500);
+  --accion: var(--petroleo-700);
+  --accion-hover: var(--petroleo-800);
+  --accion-activa: var(--petroleo-900);
+  --accion-texto: var(--piedra-0);
+  --enlace: var(--petroleo-600);
+  --enlace-hover: var(--petroleo-800);
+  --exito-fondo: var(--petroleo-50); --exito-borde: var(--petroleo-300); --exito-texto: var(--petroleo-800);
+  --alerta-fondo: var(--alerta-50); --alerta-borde: var(--alerta-200); --alerta-texto: var(--alerta-800);
+  --error-fondo: var(--error-50); --error-borde: var(--error-200); --error-texto: var(--error-800);
+  --info-fondo: var(--info-50); --info-borde: var(--info-200); --info-texto: var(--info-800);
+  --foco: var(--petroleo-600);
+}
+
+html[data-tema="oscuro"] {
+  --superficie-pagina: var(--petroleo-950);
+  --superficie: #0e2f30;
+  --superficie-suave: #123a3b;
+  --superficie-marca: #0d4a48;
+  --texto-titular: var(--petroleo-50);
+  --texto-cuerpo: #c8dad8;
+  --texto-apoyo: #8aa3a1;
+  --texto-invertido: var(--petroleo-950);
+  --borde: #1d4746;
+  --borde-fuerte: #2a5a58;
+  --borde-marca: var(--petroleo-400);
+  --accion: var(--petroleo-400);
+  --accion-hover: var(--petroleo-300);
+  --accion-activa: var(--petroleo-200);
+  --accion-texto: var(--petroleo-950);
+  --enlace: var(--petroleo-300);
+  --enlace-hover: var(--petroleo-200);
+  --exito-fondo: #0d4a48; --exito-borde: var(--petroleo-600); --exito-texto: var(--petroleo-100);
+  --alerta-fondo: #3d2607; --alerta-borde: #7c3a06; --alerta-texto: #fbdcae;
+  --error-fondo: #3d1010; --error-borde: #7f1414; --error-texto: #f7c9c9;
+  --info-fondo: #142a5c; --info-borde: #1e3a8a; --info-texto: #c3d7fb;
+  --foco: var(--petroleo-300);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--superficie-pagina);
+  color: var(--texto-cuerpo);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; color: var(--texto-titular); margin: 0; text-wrap: balance; }
+h1 { font-size: 2.25rem; line-height: 1.2; letter-spacing: -0.011em; }
+h2 { font-size: 1.75rem; line-height: 1.28; letter-spacing: -0.008em; }
+h3 { font-size: 1.375rem; line-height: 1.35; }
+h4 { font-family: var(--font-sans); font-weight: 600; font-size: 1rem; color: var(--texto-titular); margin: 0; }
+p { margin: 0; text-wrap: pretty; }
+a { color: var(--enlace); text-decoration-thickness: 1px; text-underline-offset: .18em; }
+a:hover { color: var(--enlace-hover); }
+:focus-visible { outline: 2px solid var(--foco); outline-offset: 2px; }
+code { font-family: var(--font-mono); font-size: .8125rem; }
+
+.envoltura { max-width: 62rem; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.seccion { padding-top: 3.5rem; margin-top: 3.5rem; border-top: 1px solid var(--borde); }
+.rotulo { font-size: .8125rem; font-weight: 600; color: var(--texto-apoyo); margin-bottom: 1.25rem; }
+.nota { font-size: .875rem; color: var(--texto-apoyo); max-width: var(--medida); }
+
+.rampa { display: grid; grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)); gap: 6px; }
+.paso { border-radius: var(--radius-sm); overflow: hidden; }
+.paso .muestra { height: 64px; border: 1px solid rgba(0,0,0,.06); border-radius: var(--radius-sm); }
+.paso .clave { font-size: .75rem; font-weight: 600; margin-top: 6px; color: var(--texto-cuerpo); }
+.paso .hex { font-family: var(--font-mono); font-size: .6875rem; color: var(--texto-apoyo); }
+
+.rejilla-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+.tarjeta { background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; }
+
+.btn-primario { background: var(--accion); color: var(--accion-texto); font-family: var(--font-sans); font-weight: 600; font-size: 1rem; padding: .625rem 1.25rem; border: 0; border-radius: var(--radius-md); cursor: pointer; transition: background-color 120ms ease; }
+.btn-primario:hover { background: var(--accion-hover); }
+.btn-primario:active { background: var(--accion-activa); }
+.btn-secundario { background: transparent; color: var(--texto-titular); font-family: var(--font-sans); font-weight: 600; font-size: 1rem; padding: .625rem 1.25rem; border: 1px solid var(--borde-fuerte); border-radius: var(--radius-md); cursor: pointer; }
+.btn-secundario:hover { background: var(--superficie-suave); }
+.btn-destructivo { background: transparent; color: var(--error-texto); font-family: var(--font-sans); font-weight: 600; font-size: 1rem; padding: .625rem 1.25rem; border: 1px solid var(--error-borde); border-radius: var(--radius-md); cursor: pointer; }
+.btn-destructivo:hover { background: var(--error-fondo); }
+
+.campo { width: 100%; background: var(--superficie); color: var(--texto-cuerpo); font-family: var(--font-sans); font-size: 1rem; border: 1px solid var(--borde-fuerte); border-radius: var(--radius-md); padding: .5rem .75rem; min-height: 2.75rem; }
+.campo::placeholder { color: var(--texto-apoyo); }
+.etiqueta { display: block; font-size: .875rem; font-weight: 600; color: var(--texto-titular); margin-bottom: .375rem; }
+
+.insignia { display: inline-flex; align-items: center; font-size: .8125rem; font-weight: 600; padding: .25rem .625rem; border-radius: 9999px; border: 1px solid; }
+.ins-agendada { background: var(--exito-fondo); color: var(--exito-texto); border-color: var(--exito-borde); }
+.ins-cancelada { background: var(--error-fondo); color: var(--error-texto); border-color: var(--error-borde); }
+.ins-pendiente { background: var(--alerta-fondo); color: var(--alerta-texto); border-color: var(--alerta-borde); }
+.ins-info { background: var(--info-fondo); color: var(--info-texto); border-color: var(--info-borde); }
+
+.aviso { border: 1px solid; border-radius: var(--radius-md); padding: .875rem 1rem; font-size: .9375rem; }
+
+table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+th { text-align: left; font-weight: 600; font-size: .8125rem; color: var(--texto-apoyo); padding: .5rem .75rem; border-bottom: 1px solid var(--borde); }
+td { padding: .75rem; border-bottom: 1px solid var(--borde); }
+
+.cambia-tema { position: sticky; top: 1rem; float: right; z-index: 2; }
+.prosa { max-width: var(--medida); }
+@media (prefers-reduced-motion: reduce) { * { transition-duration: .01ms !important; } }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <button class="btn-secundario cambia-tema" id="tema" aria-pressed="false">Modo oscuro</button>
+
+  <header>
+    <h1>Sistema visual GHYCS</h1>
+    <p class="prosa" style="margin-top:.75rem; font-size:1.125rem; line-height:1.7;">
+      Azul petróleo con Lora y Source Sans 3. Esta página es la referencia de color, tipografía y
+      componentes para el sitio de Gestores de Habilitación y Calidad en Salud.
+    </p>
+  </header>
+
+  <section class="seccion">
+    <p class="rotulo">Escala petróleo</p>
+    <div class="rampa">
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-50)"></div><div class="clave">50</div><div class="hex">#edf5f4</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-100)"></div><div class="clave">100</div><div class="hex">#d3e8e5</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-200)"></div><div class="clave">200</div><div class="hex">#a9d6d0</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-300)"></div><div class="clave">300</div><div class="hex">#7bbfb7</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-400)"></div><div class="clave">400</div><div class="hex">#4ea79d</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-500)"></div><div class="clave">500</div><div class="hex">#2a9187</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-600)"></div><div class="clave">600</div><div class="hex">#17756e</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-700)"></div><div class="clave">700</div><div class="hex">#115e59</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-800)"></div><div class="clave">800</div><div class="hex">#0d4a48</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-900)"></div><div class="clave">900</div><div class="hex">#0b3b3c</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--petroleo-950)"></div><div class="clave">950</div><div class="hex">#062626</div></div>
+    </div>
+    <p class="nota" style="margin-top:1rem;">
+      El 700 es la acción primaria y el 600 los enlaces. El 500 llega a 3.8:1 sobre blanco:
+      sirve para bordes y rellenos, nunca para texto.
+    </p>
+
+    <p class="rotulo" style="margin-top:2.5rem;">Neutrales piedra</p>
+    <div class="rampa">
+      <div class="paso"><div class="muestra" style="background:var(--piedra-0)"></div><div class="clave">0</div><div class="hex">#ffffff</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-50)"></div><div class="clave">50</div><div class="hex">#f7faf9</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-100)"></div><div class="clave">100</div><div class="hex">#eef3f3</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-200)"></div><div class="clave">200</div><div class="hex">#dce5e5</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-300)"></div><div class="clave">300</div><div class="hex">#c3d0d0</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-400)"></div><div class="clave">400</div><div class="hex">#9aacab</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-500)"></div><div class="clave">500</div><div class="hex">#5f7373</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-600)"></div><div class="clave">600</div><div class="hex">#465958</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-700)"></div><div class="clave">700</div><div class="hex">#2f4746</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-800)"></div><div class="clave">800</div><div class="hex">#1e3130</div></div>
+      <div class="paso"><div class="muestra" style="background:var(--piedra-900)"></div><div class="clave">900</div><div class="hex">#12201f</div></div>
+    </div>
+    <p class="nota" style="margin-top:1rem;">
+      No son grises puros: llevan matiz petróleo para que el texto no se sienta ajeno a la marca.
+    </p>
+  </section>
+
+  <section class="seccion">
+    <p class="rotulo">Escala tipográfica</p>
+    <div style="display:grid; gap:1.75rem;">
+      <div>
+        <p style="font-family:var(--font-display); font-weight:600; font-size:3rem; line-height:1.12; letter-spacing:-.015em; color:var(--texto-titular);">Habilitación sin sobresaltos</p>
+        <p class="hex" style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.25rem;">display · Lora 600 · 48px / 1.12</p>
+      </div>
+      <div>
+        <h1>Resolución 3100 de 2019</h1>
+        <p style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.25rem;">h1 · Lora 600 · 36px / 1.2</p>
+      </div>
+      <div>
+        <h2>Autoevaluación y PAMEC</h2>
+        <p style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.25rem;">h2 · Lora 600 · 28px / 1.28</p>
+      </div>
+      <div>
+        <h3>Acompañamiento en visita de verificación</h3>
+        <p style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.25rem;">h3 · Lora 600 · 22px / 1.35</p>
+      </div>
+      <div>
+        <h4>Documentos que debe reunir la IPS</h4>
+        <p style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.25rem;">h4 · Source Sans 3 600 · 16px</p>
+      </div>
+      <div>
+        <p class="prosa" style="font-size:1.125rem; line-height:1.7;">Texto de entrada. Acompañamos a instituciones prestadoras de servicios de salud, profesionales independientes y entidades con objeto social diferente en cada etapa del proceso de habilitación.</p>
+        <p style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.5rem;">lead · Source Sans 3 400 · 18px / 1.7</p>
+      </div>
+      <div>
+        <p class="prosa">Texto de cuerpo. La verificación de condiciones de habilitación evalúa capacidad técnico-administrativa, suficiencia patrimonial y capacidad tecnológica y científica. Preparar cada frente con anticipación reduce el riesgo de hallazgos durante la visita de la Secretaría de Salud.</p>
+        <p style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.5rem;">base · Source Sans 3 400 · 16px / 1.65 · ancho máximo 68ch</p>
+      </div>
+      <div>
+        <p style="font-size:.875rem;">Texto pequeño para tablas, metadatos y ayudas de formulario.</p>
+        <p style="font-family:var(--font-mono); font-size:.75rem; color:var(--texto-apoyo); margin-top:.25rem;">sm · Source Sans 3 400 · 14px / 1.6</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <p class="rotulo">Botones y campos</p>
+    <div style="display:flex; gap:.75rem; flex-wrap:wrap; align-items:center;">
+      <button class="btn-primario">Agendar cita</button>
+      <button class="btn-secundario">Ver portafolio</button>
+      <button class="btn-destructivo">Cancelar cita</button>
+      <a href="#tipografia">Enlace de texto</a>
+    </div>
+
+    <div class="rejilla-2" style="margin-top:2rem;">
+      <div>
+        <label class="etiqueta" for="c1">Correo electrónico</label>
+        <input class="campo" id="c1" type="email" placeholder="contacto@ips.com">
+      </div>
+      <div>
+        <label class="etiqueta" for="c2">Tipo de solicitante</label>
+        <select class="campo" id="c2">
+          <option>IPS</option>
+          <option>Profesional independiente</option>
+          <option>Objeto social diferente</option>
+        </select>
+      </div>
+    </div>
+    <p class="nota" style="margin-top:1rem;">Altura mínima de 44px en los campos: es el objetivo táctil cómodo en móvil.</p>
+  </section>
+
+  <section class="seccion">
+    <p class="rotulo">Estados</p>
+    <div style="display:flex; gap:.625rem; flex-wrap:wrap;">
+      <span class="insignia ins-agendada">Agendada</span>
+      <span class="insignia ins-cancelada">Cancelada</span>
+      <span class="insignia ins-pendiente">Sin sincronizar</span>
+      <span class="insignia ins-info">Atendida</span>
+    </div>
+
+    <div style="display:grid; gap:.75rem; margin-top:1.5rem; max-width:44rem;">
+      <div class="aviso" style="background:var(--exito-fondo); border-color:var(--exito-borde); color:var(--exito-texto);">
+        Cita confirmada para el martes 9 de septiembre a las 10:00. Te enviamos la invitación con el enlace de la videollamada.
+      </div>
+      <div class="aviso" style="background:var(--alerta-fondo); border-color:var(--alerta-borde); color:var(--alerta-texto);">
+        La cita quedó registrada pero no se creó el evento en el calendario. Revísala antes de la fecha.
+      </div>
+      <div class="aviso" style="background:var(--error-fondo); border-color:var(--error-borde); color:var(--error-texto);">
+        Ese horario acaba de ocuparse. Elige otro de la lista.
+      </div>
+    </div>
+    <p class="nota" style="margin-top:1rem;">
+      El éxito usa el petróleo de marca, no verde: un verde junto a un teal se confunde de un vistazo.
+    </p>
+  </section>
+
+  <section class="seccion">
+    <p class="rotulo">En contexto</p>
+
+    <div style="background:var(--superficie-marca); border-radius:var(--radius-lg); padding:2.5rem 2rem; margin-bottom:1rem;">
+      <p style="font-family:var(--font-display); font-weight:600; font-size:2.25rem; line-height:1.2; color:var(--texto-titular); max-width:20ch;">Su habilitación, sin sorpresas en la visita</p>
+      <p class="prosa" style="margin-top:1rem; font-size:1.125rem; line-height:1.7;">Asesoría y acompañamiento en Resolución 3100 para IPS, profesionales independientes y entidades con objeto social diferente.</p>
+      <button class="btn-primario" style="margin-top:1.5rem;">Agendar cita de diagnóstico</button>
+    </div>
+
+    <div class="tarjeta">
+      <h4 style="margin-bottom:1rem;">Citas próximas</h4>
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Solicitante</th><th>Tipo</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>9 sep · 10:00</td><td>IPS San Rafael</td><td>IPS</td><td><span class="insignia ins-agendada">Agendada</span></td></tr>
+          <tr><td>9 sep · 14:00</td><td>Odontología Vélez</td><td>Prof. independiente</td><td><span class="insignia ins-pendiente">Sin sincronizar</span></td></tr>
+          <tr><td>8 sep · 10:00</td><td>Laboratorio Andes</td><td>Objeto social diferente</td><td><span class="insignia ins-info">Atendida</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const boton = document.getElementById('tema');
+boton.addEventListener('click', () => {
+  const oscuro = document.documentElement.getAttribute('data-tema') === 'oscuro';
+  document.documentElement.setAttribute('data-tema', oscuro ? 'claro' : 'oscuro');
+  boton.textContent = oscuro ? 'Modo oscuro' : 'Modo claro';
+  boton.setAttribute('aria-pressed', String(!oscuro));
+});
+</script>
+</body>
+</html>
