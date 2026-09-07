@@ -14,6 +14,12 @@ export interface RepositorioSolicitudes {
 
   /** Guarda la solicitud; devuelve `null` si la hora ya está tomada (RS-F-007). */
   guardar(nueva: SolicitudNueva): Promise<Solicitud | null>;
+
+  /** Solicitud del enlace privado; `null` si el token no existe (RS-F-012). */
+  porToken(token: string): Promise<Solicitud | null>;
+
+  /** Persiste la solicitud que el dominio ya transformó (RS-F-014). */
+  actualizar(solicitud: Solicitud): Promise<void>;
 }
 
 export interface Reloj {

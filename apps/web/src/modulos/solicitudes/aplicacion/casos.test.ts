@@ -4,6 +4,8 @@ import type { SolicitudNueva } from "../dominio/solicitud";
 import { ocupacionEnMemoria, repositorioEnMemoria } from "../infraestructura/falsos";
 import { consultarDisponibilidad } from "./consultar-disponibilidad";
 import { crearSolicitud } from "./crear-solicitud";
+import { cancelarCita } from "./cancelar-cita";
+import { consultarPorToken } from "./consultar-por-token";
 
 const horario: HorarioBase = {
   dias: [1, 2, 3, 4, 5],
@@ -68,4 +70,41 @@ it("crear-solicitud rechaza la hora que acaba de ocuparse (RS-F-007)", async () 
   const sinRevalidar = { ...repositorio, agendadas: async () => [] };
   const r = await crearSolicitud({ repositorio: sinRevalidar, ocupacion: ocupacionEnMemoria(), reloj, horario }).ejecutar(comando());
   expect(r).toEqual({ ok: false, error: "horario-ocupado" });
+});
+
+it("consultar-por-token no encuentra un token desconocido (RS-F-012)", async () => {
+  const caso = consultarPorToken({ repositorio: repositorioEnMemoria(60), reloj });
+  expect(await caso.ejecutar({ token: "no-existe" })).toEqual({ ok: false, error: "no-encontrada" });
+});
+
+it("cancelar-cita libera la hora y conserva la solicitud (RS-F-014)", async () => {
+  const repositorio = repositorioEnMemoria(60);
+  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), reloj, horario };
+  const creada = await crearSolicitud(puertos).ejecutar(comando());
+  const token = creada.ok ? creada.valor.token : "";
+
+  expect(await cancelarCita({ repositorio, reloj }).ejecutar({ token })).toEqual({ ok: true, valor: null });
+
+  const vista = await consultarPorToken({ repositorio, reloj }).ejecutar({ token });
+  expect(vista.ok && vista.valor.solicitud).toEqual({ ...(creada.ok && creada.valor), citaEstado: "cancelada" });
+  expect(vista.ok && vista.valor.cancelable).toBe(false);
+
+  const libres = await consultarDisponibilidad(puertos).ejecutar({ fecha: "2026-09-07" });
+  expect(libres.ok && libres.valor.map((d) => d.toISOString())).toEqual([
+    "2026-09-07T13:00:00.000Z",
+    "2026-09-07T14:00:00.000Z",
+  ]);
+});
+
+it("cancelar-cita rechaza una cita que ya no es cancelable (RS-F-013)", async () => {
+  const repositorio = repositorioEnMemoria(60);
+  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), reloj, horario };
+  const creada = await crearSolicitud(puertos).ejecutar(comando());
+  const token = creada.ok ? creada.valor.token : "";
+  await cancelarCita({ repositorio, reloj }).ejecutar({ token });
+
+  expect(await cancelarCita({ repositorio, reloj }).ejecutar({ token })).toEqual({
+    ok: false,
+    error: "no-cancelable",
+  });
 });

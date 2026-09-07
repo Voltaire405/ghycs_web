@@ -8,6 +8,7 @@ import Politica from "./(publico)/politica-de-datos/page";
 import NoEncontrada from "./not-found";
 import Confirmacion from "./(publico)/solicitar/confirmacion/page";
 import Solicitar from "./(publico)/solicitar/page";
+import Cita from "./(publico)/solicitud/[token]/page";
 
 const paginas = { "/": Inicio, "/politica-de-datos": Politica, "404": NoEncontrada };
 
@@ -39,6 +40,14 @@ const asincronas: [string, Promise<React.ReactElement>][] = [
     "/solicitar/confirmacion",
     Confirmacion({ searchParams: Promise.resolve({ cita: "2026-09-07T13:00:00.000Z" }), params: Promise.resolve({}) }),
   ],
+  [
+    "/solicitud/[token]",
+    Cita({ params: Promise.resolve({ token: "muestra-agendada" }), searchParams: Promise.resolve({}) }),
+  ],
+  [
+    "/solicitud/[token] cancelada",
+    Cita({ params: Promise.resolve({ token: "muestra-cancelada" }), searchParams: Promise.resolve({ cancelada: "1" }) }),
+  ],
 ];
 
 describe.each(asincronas)("%s", (_ruta, pagina) => {
@@ -49,6 +58,12 @@ describe.each(asincronas)("%s", (_ruta, pagina) => {
     const r = await axe.run(document.body);
     expect(r.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join(" | ")}`)).toEqual([]);
   });
+});
+
+it("un token desconocido devuelve la 404 del sitio (RS-F-012)", async () => {
+  await expect(
+    Cita({ params: Promise.resolve({ token: "no-existe" }), searchParams: Promise.resolve({}) }),
+  ).rejects.toThrow(/NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/);
 });
 
 it("ningún archivo de src tiene valores hexadecimales (RS-NF-007)", () => {
