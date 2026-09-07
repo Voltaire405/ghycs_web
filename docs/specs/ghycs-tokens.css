@@ -253,6 +253,8 @@
   .prosa { max-width: var(--medida); }
 
   .btn-primario {
+    display: inline-block;
+    text-decoration: none;
     background-color: var(--accion);
     color: var(--accion-texto);
     font-weight: 600;
@@ -266,6 +268,8 @@
   .btn-primario:disabled { opacity: 0.55; cursor: not-allowed; }
 
   .btn-secundario {
+    display: inline-block;
+    text-decoration: none;
     background-color: transparent;
     color: var(--texto-titular);
     font-weight: 600;
@@ -276,6 +280,8 @@
   .btn-secundario:hover { background-color: var(--superficie-suave); }
 
   .btn-destructivo {
+    display: inline-block;
+    text-decoration: none;
     background-color: transparent;
     color: var(--error-texto);
     font-weight: 600;
