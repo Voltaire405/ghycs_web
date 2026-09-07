@@ -19,7 +19,12 @@ export function PaginaPublica({ children }: { children: ReactNode }) {
       <footer className="border-t border-borde bg-superficie">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-6 text-sm text-apoyo">
           <p>GHYCS · Gestores de Habilitación y Calidad en Salud</p>
-          <Link href="/politica-de-datos">Política de tratamiento de datos</Link>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link href="/politica-de-datos">Política de tratamiento de datos</Link>
+            {/* ponytail: acceso provisional para la demo; el sitio no debe enlazar
+                el panel una vez exista la sesión real (#10). */}
+            <Link href="/login">Acceso del gestor</Link>
+          </div>
         </div>
       </footer>
     </>
