@@ -17,11 +17,10 @@ repo equivalen a `ds-bundle/`.
 
 Lo que el bundle no sabe del repo:
 
-- La app carga `docs/specs/ghycs-tokens.css` (Tailwind v4, `@theme`) desde
-  `apps/web/src/app/globals.css`; el bundle es esa misma escala aplanada a `:root`.
-  Un valor nuevo se edita en `ghycs-tokens.css` y se rederiva al bundle siguiendo
+- La app carga `apps/web/src/app/tokens.css` (Tailwind v4, `@theme`) desde
+  `globals.css`; el bundle es esa misma escala aplanada a `:root`.
+  Un valor nuevo se edita en `tokens.css` y se rederiva al bundle siguiendo
   `.design-sync/NOTES.md`.
-- `docs/specs/ghycs-guia-estilos.html` es la muestra visual; ábrela para ver el conjunto.
 
 ## Copy visible
 
@@ -32,5 +31,4 @@ el marco) y ADR-0005 (el asistente no interpreta la norma).
 
 ## Producto
 
-`docs/specs/diseno-preliminar.md` tiene el mapa de rutas, los dos ejes de la solicitud
-(`tipo_prestador` y `momento`), el orden por urgencia de `/admin` y los estados de la cita.
+`docs/prd.md` fija los requisitos y `docs/roadmap.md` el orden de las capacidades.

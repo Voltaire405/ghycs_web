@@ -1,5 +1,4 @@
-/* ponytail: los tokens se importan desde docs/ para tener una sola fuente; cópialos a compartido/ui si el despliegue no ve la raíz del monorepo. */
-@import "../../../../docs/specs/ghycs-tokens.css";
+@import "./tokens.css";
 
 @theme {
   --font-display: var(--fuente-lora), Georgia, "Times New Roman", serif;

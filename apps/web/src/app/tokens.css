@@ -1,19 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap");
-
-/* ============================================================
-   GHYCS — Design tokens (versión plana para Claude Design)
-   Fuente de verdad: apps/web/src/app/tokens.css (Tailwind v4).
-   Aquí @theme está aplanado a :root para que corra en el navegador.
-   ============================================================ */
-
-@layer base {
-  *, *::before, *::after { box-sizing: border-box; }
-  body { margin: 0; }
-  img, svg, video { max-width: 100%; height: auto; display: block; }
-  button, input, select, textarea { font: inherit; color: inherit; }
-  button { cursor: pointer; border: 0; background: none; }
-}
-
+@import "tailwindcss";
 
 /* ============================================================
    GHYCS — Design tokens
@@ -21,7 +6,7 @@
    Tailwind v4 (CSS-first). Importar en app/globals.css
    ============================================================ */
 
-:root {
+@theme {
   /* ---------- Tipografía ---------- */
   --font-display: "Lora", Georgia, "Times New Roman", serif;
   --font-sans: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -194,7 +179,7 @@
 }
 
 /* Puente hacia utilidades Tailwind: bg-superficie, text-cuerpo, etc. */
-:root {
+@theme inline {
   --color-superficie-pagina: var(--superficie-pagina);
   --color-superficie: var(--superficie);
   --color-superficie-suave: var(--superficie-suave);
@@ -268,6 +253,8 @@
   .prosa { max-width: var(--medida); }
 
   .btn-primario {
+    display: inline-block;
+    text-decoration: none;
     background-color: var(--accion);
     color: var(--accion-texto);
     font-weight: 600;
@@ -281,6 +268,8 @@
   .btn-primario:disabled { opacity: 0.55; cursor: not-allowed; }
 
   .btn-secundario {
+    display: inline-block;
+    text-decoration: none;
     background-color: transparent;
     color: var(--texto-titular);
     font-weight: 600;
@@ -291,6 +280,8 @@
   .btn-secundario:hover { background-color: var(--superficie-suave); }
 
   .btn-destructivo {
+    display: inline-block;
+    text-decoration: none;
     background-color: transparent;
     color: var(--error-texto);
     font-weight: 600;

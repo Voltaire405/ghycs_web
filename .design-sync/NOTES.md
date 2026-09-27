@@ -2,7 +2,7 @@
 
 - **No aplica ningún shape del converter.** El repo no tiene librería de componentes ni
   Storybook: `apps/web` es el scaffold de Next.js. `ds-bundle/` se escribe a mano.
-- `ds-bundle/tokens/ghycs.css` se deriva de `docs/specs/ghycs-tokens.css` con:
+- `ds-bundle/tokens/ghycs.css` se deriva de `apps/web/src/app/tokens.css` con:
   borrar `@import "tailwindcss"`, `@theme {` y `@theme inline {` → `:root {`, y un reset
   mínimo envuelto en `@layer base`. Si cambian los tokens, repetir esa transformación.
 - El reset **debe** ir dentro de `@layer base`: fuera de capa, `button { color: inherit }`
