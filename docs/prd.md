@@ -80,7 +80,7 @@ Habilitación inicial, novedad, hallazgo de una visita de habilitación y cierre
 
 - **RC-4.** El asistente no interpreta la norma ni accede a datos de solicitudes, según el ADR-0005.
 
-- **RC-5.** El gestor opera con una sola cuenta administrativa; no hay roles.
+- **RC-5.** Cada socio del gestor entra con su propia cuenta de Google, desde una lista blanca; no hay roles, según el ADR-0006.
 
 ### 4.2 Supuestos
 
@@ -244,7 +244,7 @@ Convenciones: cada requisito tiene un identificador único `RP-<categoría>-<n>`
 
 ### RP-F-013 · Acceso del gestor
 
-**Enunciado.** El sitio debe restringir el acceso a la administración a una única cuenta autenticada.
+**Enunciado.** El sitio debe restringir el acceso a la administración a las cuentas de Google de los socios del gestor incluidas en la lista blanca.
 
 **Justificación.** RC-5.
 
