@@ -6,6 +6,6 @@ El gestor ya vive en Google: su calendario es la fuente de la disponibilidad (AD
 
 ## Consecuencias
 
-Better Auth guarda usuarios y sesiones en Postgres con su adaptador de Drizzle, así que suma tablas al esquema. El inicio de sesión pide solo los permisos de identidad (correo y perfil); el acceso al calendario sigue en su propia credencial de servidor, para que la disponibilidad no dependa de que un socio tenga la sesión abierta.
+Better Auth guarda usuarios y sesiones en Turso con su adaptador de Drizzle (ADR-0007), así que suma tablas al esquema. El inicio de sesión pide solo los permisos de identidad (correo y perfil); el acceso al calendario sigue en su propia credencial de servidor, para que la disponibilidad no dependa de que un socio tenga la sesión abierta.
 
 La lista blanca contiene los correos de los tres socios, cada uno con su propia cuenta; no hay roles (RC-5 del PRD): quien está en la lista ve todo, y nadie más entra.
