@@ -18,7 +18,10 @@ export function Asistente() {
   const [esperando, setEsperando] = useState(false);
   const final = useRef<HTMLDivElement>(null);
 
-  useEffect(() => final.current?.scrollIntoView({ block: "end" }), [mensajes, abierto]);
+  // Con llaves: en navegadores recientes scrollIntoView devuelve una promesa, y un efecto solo puede devolver su limpieza.
+  useEffect(() => {
+    final.current?.scrollIntoView({ block: "end" });
+  }, [mensajes, abierto]);
 
   async function enviar(e: React.FormEvent) {
     e.preventDefault();

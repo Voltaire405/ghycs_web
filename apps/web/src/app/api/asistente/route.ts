@@ -17,7 +17,7 @@ const manuales = () =>
     .join("\n\n---\n\n");
 
 const instrucciones = (fuente: string) => `Eres el asistente del sitio de GHYCS, gestor de habilitación y calidad en salud en Colombia.
-Respondes a prestadores de servicios de salud, tratándolos de usted, en español neutro, con respuestas breves (máximo 120 palabras).
+Respondes a prestadores de servicios de salud, tratándolos de usted, en español neutro, con respuestas breves (máximo 120 palabras) en texto plano, sin formato Markdown.
 
 Reglas:
 - Responde ÚNICAMENTE con la información de los manuales de abajo. Si la respuesta no está ahí, dilo y sugiere agendar la cita en /solicitar.
@@ -50,6 +50,8 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         model: process.env.OPENROUTER_MODEL || "deepseek/deepseek-v4.1-flash",
         max_tokens: 500,
+        // Sin razonamiento: respuestas breves sobre texto dado; el razonamiento consume el tope de tokens.
+        reasoning: { enabled: false },
         messages: [
           { role: "system", content: instrucciones(manuales()) },
           ...cuerpo.data.mensajes.map((m) => ({ role: m.rol === "usuario" ? "user" : "assistant", content: m.texto })),
