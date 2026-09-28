@@ -1,12 +1,19 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { auth } from "@/modulos/acceso/componer";
 
-/**
- * Fase 1: cualquier credencial entra. La comparación contra `ADMIN_EMAIL` y el hash
- * Argon2id, la cookie de sesión y el límite de intentos llegan en fase 2
- * (RS-F-015, RS-F-016, RS-F-017).
- */
-export async function iniciarSesion() {
-  redirect("/admin");
+/** Lleva a Google; al volver, Better Auth abre la sesión o devuelve aquí con `error` (ADR-0006). */
+export async function entrarConGoogle() {
+  const { url } = await auth.api.signInSocial({
+    body: { provider: "google", callbackURL: "/admin", errorCallbackURL: "/login" },
+  });
+  if (!url) throw new Error("Better Auth no devolvió la dirección de Google");
+  redirect(url);
+}
+
+export async function salir() {
+  await auth.api.signOut({ headers: await headers() });
+  redirect("/");
 }

@@ -32,6 +32,11 @@ vi.mock("@/modulos/solicitudes/componer", async () => {
   };
   return { casos: componerCasos({ ocupacion, repositorio, reloj: relojDelSistema, horario }) };
 });
+// Las páginas del gestor se renderizan con una sesión abierta; la redirección sin sesión se prueba en `modulos/acceso`.
+vi.mock("@/modulos/acceso/componer", () => ({
+  exigirSesion: async () => ({ user: { email: "socia@ghycs.co" } }),
+  auth: {},
+}));
 // Fuera de una petición `connection()` lanza; aquí no hay prerender que evitar.
 vi.mock("next/server", async (original) => ({ ...(await original<object>()), connection: async () => {} }));
 
@@ -104,7 +109,7 @@ describe("404", () => {
 
 const delGestor: [string, Promise<React.ReactElement>][] = [
   ["/login", Login({ searchParams: Promise.resolve({}), params: Promise.resolve({}) })],
-  ["/login bloqueado", Login({ searchParams: Promise.resolve({ bloqueado: "1" }), params: Promise.resolve({}) })],
+  ["/login rechazado", Login({ searchParams: Promise.resolve({ error: "unable_to_create_user" }), params: Promise.resolve({}) })],
   ["/admin", Admin()],
   [
     "/admin/solicitudes/[id]",

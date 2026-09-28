@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { exigirSesion } from "@/modulos/acceso/componer";
 import { casos } from "@/modulos/solicitudes/componer";
 import type { ErrorActualizarCita } from "@/modulos/solicitudes/aplicacion/actualizar-cita";
 import { CIERRES_DEL_GESTOR } from "@/modulos/solicitudes/aplicacion/vistas";
@@ -18,6 +19,7 @@ const notas = z.object({ id: z.string().min(1), notas: z.string().max(5000) });
 const cierre = z.object({ id: z.string().min(1), estado: z.enum(CIERRES_DEL_GESTOR) });
 
 export async function actualizarCita(_estado: EstadoGuardado, datos: FormData): Promise<EstadoGuardado> {
+  await exigirSesion();
   const r = cierre.safeParse(Object.fromEntries(datos));
   if (!r.success) return { error: MENSAJES.invalido };
 
@@ -30,6 +32,7 @@ export async function actualizarCita(_estado: EstadoGuardado, datos: FormData): 
 }
 
 export async function registrarNotas(_estado: EstadoGuardado, datos: FormData): Promise<EstadoGuardado> {
+  await exigirSesion();
   const r = notas.safeParse(Object.fromEntries(datos));
   if (!r.success) return { error: MENSAJES.invalido };
 

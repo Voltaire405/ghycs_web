@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS.
 - **Para qué**: dejar por escrito lo que se sabe y lo que sigue con cada prestador, para que cualquier socio lo retome.
-- **Estado**: Parcial · Now. En el sitio publicado la administración responde «no encontrada» hasta que exista la entrada con Google.
+- **Estado**: Disponible · Now.
 - **Requisitos**: RP-F-015.
 
 ## Antes de empezar

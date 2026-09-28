@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { fechaLarga, horaCorta } from "@/compartido/ui/fecha";
+import { exigirSesion } from "@/modulos/acceso/componer";
 import { casos } from "@/modulos/solicitudes/componer";
 import { MOMENTOS } from "@/modulos/solicitudes/ui/etiquetas";
 import { InsigniasSolicitud } from "@/modulos/solicitudes/ui/InsigniasSolicitud";
@@ -10,6 +11,7 @@ export const metadata = { title: "Solicitudes" };
 export default async function Admin() {
   // Sin esto el build congela el listado en su momento: las solicitudes cambian en Turso.
   await connection();
+  await exigirSesion();
   const solicitudes = await casos.listarSolicitudes.ejecutar();
 
   return (

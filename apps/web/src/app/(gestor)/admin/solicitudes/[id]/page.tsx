@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fechaLarga, horaCorta } from "@/compartido/ui/fecha";
+import { exigirSesion } from "@/modulos/acceso/componer";
 import { casos } from "@/modulos/solicitudes/componer";
 import { MOMENTOS, TIPOS_PRESTADOR } from "@/modulos/solicitudes/ui/etiquetas";
 import { InsigniasSolicitud } from "@/modulos/solicitudes/ui/InsigniasSolicitud";
@@ -10,6 +11,7 @@ import { actualizarCita, registrarNotas } from "./acciones";
 export const metadata = { title: "Solicitud" };
 
 export default async function Detalle({ params }: PageProps<"/admin/solicitudes/[id]">) {
+  await exigirSesion();
   const { id } = await params;
   const resultado = await casos.verSolicitud.ejecutar({ id });
   if (!resultado.ok) notFound();

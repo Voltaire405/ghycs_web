@@ -34,3 +34,6 @@ jobs:
           GOOGLE_CLIENT_ID: ci
           GOOGLE_CLIENT_SECRET: ci
           GOOGLE_REFRESH_TOKEN: ci
+          BETTER_AUTH_SECRET: ci-ci-ci-ci-ci-ci-ci-ci-ci-ci-ci-ci
+          BETTER_AUTH_URL: http://localhost:3000
+          CORREOS_SOCIOS: ci@ghycs.co

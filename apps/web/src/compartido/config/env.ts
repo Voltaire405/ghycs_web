@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Solo se exigen las variables que ya tienen consumidor (RS-NF-014). Cada adaptador nuevo
- * agrega aquí las suyas: Resend y el acceso del gestor aún no las leen.
+ * agrega aquí las suyas: Resend aún no las lee.
  */
 const esquemaBd = z.object({
   DATABASE_URL: z.string().min(1),
@@ -16,6 +16,14 @@ const esquema = esquemaBd.extend({
   GOOGLE_CLIENT_SECRET: z.string().min(1),
   GOOGLE_REFRESH_TOKEN: z.string().min(1),
   GOOGLE_CALENDAR_ID: z.string().optional().transform((v) => v || "primary"),
+  // Acceso del gestor con Google (ADR-0006): el mismo cliente OAuth, solo con permisos de identidad.
+  BETTER_AUTH_SECRET: z.string().min(32),
+  BETTER_AUTH_URL: z.url(),
+  // Lista de acceso: correos separados por coma. No hay roles (RC-5).
+  CORREOS_SOCIOS: z
+    .string()
+    .transform((v) => v.split(",").map((c) => c.trim()).filter(Boolean))
+    .pipe(z.array(z.email()).min(1)),
 });
 
 export type Env = z.infer<typeof esquema>;

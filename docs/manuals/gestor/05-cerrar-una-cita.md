@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS.
 - **Para qué**: dejar registrado si la cita se realizó o si el prestador no se conectó.
-- **Estado**: Parcial · Now. El cierre funciona; aún permite cerrar antes de la hora de la cita, y está previsto impedirlo. En el sitio publicado la administración responde «no encontrada» hasta que exista la entrada con Google.
+- **Estado**: Parcial · Now. El cierre funciona; aún permite cerrar antes de la hora de la cita, y está previsto impedirlo.
 - **Requisitos**: RP-F-015, RP-F-024.
 
 ## Antes de empezar
