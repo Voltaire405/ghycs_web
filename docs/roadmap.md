@@ -11,8 +11,11 @@ Salida: en producción, un prospecto envía desde el móvil una solicitud con ci
     - [ ] Disponibilidad real (se calcula contra FreeBusy y sin horarios si falla, ADR 0004)
       - [ ] Cita confirmada con videollamada
     - [ ] Consulta y cancelación por enlace privado
+      - [ ] Retiro del evento y aviso al gestor al cancelar ← requiere Cita confirmada con videollamada
     - [ ] Panel del gestor por urgencia
       - [ ] Aviso de sincronización fallida ← requiere Cita confirmada con videollamada
+      - [ ] Cierre de la cita solo después de su hora
+      - [ ] Corrección del correo y reenvío de la confirmación ← requiere Consulta y cancelación por enlace privado
 
 ## Next — Prestadores reales
 

@@ -240,6 +240,16 @@ Convenciones: cada requisito tiene un identificador único `RP-<categoría>-<n>`
 
 **Verificación.** Prueba
 
+### RP-F-023 · Efectos de la cancelación
+
+**Enunciado.** Cuando el prospecto cancela la cita, el sitio debe retirar el evento del calendario del gestor y enviarle al gestor un aviso por correo.
+
+**Justificación.** Un evento cancelado que sigue en el calendario bloquea tiempo y confunde al gestor; el aviso le permite retomar al prospecto (RP-F-012) sin entrar a `/admin`.
+
+**Prioridad.** Obligatorio
+
+**Verificación.** Prueba
+
 ### 5.3 Atención por el gestor
 
 ### RP-F-013 · Acceso del gestor
@@ -271,6 +281,26 @@ Convenciones: cada requisito tiene un identificador único `RP-<categoría>-<n>`
 **Prioridad.** Obligatorio
 
 **Verificación.** Demostración
+
+### RP-F-024 · Cierre después de la hora
+
+**Enunciado.** La administración debe impedir que el gestor marque una cita como atendida o no asistió antes de su hora de inicio.
+
+**Justificación.** El cierre es definitivo y conserva la hora ocupada; cerrar antes de tiempo es siempre un error sin corrección.
+
+**Prioridad.** Obligatorio
+
+**Verificación.** Prueba
+
+### RP-F-025 · Reenvío de la confirmación
+
+**Enunciado.** La administración debe permitir al gestor corregir el correo de una solicitud y reenviar el correo de confirmación con el enlace privado.
+
+**Justificación.** RP-F-011 y RP-F-021. El enlace solo viaja en la confirmación; sin reenvío, el prospecto que lo pierde o escribió mal su correo no puede cancelar por sí mismo.
+
+**Prioridad.** Obligatorio
+
+**Verificación.** Prueba
 
 ### RP-F-016 · Aviso de sincronización fallida
 
