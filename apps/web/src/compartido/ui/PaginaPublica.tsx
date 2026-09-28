@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -7,7 +8,9 @@ export function PaginaPublica({ children }: { children: ReactNode }) {
     <>
       <header className="border-b border-borde bg-superficie">
         <nav aria-label="Principal" className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/" className="font-display text-h3 font-semibold text-titular">
+          <Link href="/" className="flex items-center gap-3 font-display text-h3 font-semibold text-titular">
+            {/* El nombre ya lo lleva el texto del enlace: el logo es decorativo. */}
+            <Image src="/ghycs-logo.jpg" alt="" width={48} height={48} priority className="rounded-full" />
             GHYCS
           </Link>
           <Link href="/solicitar" className="btn-primario">
