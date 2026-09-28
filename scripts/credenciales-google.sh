@@ -198,10 +198,9 @@ cd "$(dirname "$0")/.."
 ENV_FILE="apps/web/.env.local"
 ALCANCE="https://www.googleapis.com/auth/calendar.freebusy"
 PLAYGROUND="https://developers.google.com/oauthplayground"
-SITIO="https://ghycs.vercel.app"  # inicio y política de datos que exige Branding para publicar
 
 TOTAL_STAGES=7
-TOTAL_MINUTES=26
+TOTAL_MINUTES=19
 
 banner "Credenciales de Google FreeBusy para pruebas"
 
@@ -217,20 +216,14 @@ open_url "https://console.cloud.google.com/apis/library/calendar-json.googleapis
 step "Pulsa «Enable» (si dice «Manage», ya está habilitada)."
 pause "¿Habilitada? Enter para seguir"
 
-stage "Pantalla de consentimiento OAuth" 10
-open_url "https://console.cloud.google.com/auth/branding"
-step "Si aparece «Get started»: app name, user support email, audience «External», contact email, acepta y crea."
-step "En «Branding» → «App domain»: Application home page = $SITIO/"
-step "Application privacy policy link = $SITIO/politica-de-datos"
-step "En «Authorized domains» agrega: ${SITIO#https://} → «Save»."
+stage "Pantalla de consentimiento OAuth" 3
+open_url "https://console.cloud.google.com/auth/overview"
+step "Si aparece «Get started»: app name «GHYCS», user support email, audience «External», contact email, acepta y crea."
 step "Ve a «Data Access» → «Add or remove scopes»; en «Manually add scopes» pega $ALCANCE → «Add to table» → «Update» → «Save»."
-step "Si Google lo pide al publicar: «Verification Center» → «Verify branding». Tarda hasta 5 minutos; espera a que termine."
-note "  Verification Center: https://console.cloud.google.com/auth/verification"
-step "Ve a «Audience» → «Publish app» → confirma. «Publishing status» debe decir «In production»."
-warn "En «Testing» el refresh token caduca a los 7 días y CI fallaría con invalid_grant."
-note "No envíes la app a verificación: sin verificar funciona, Google solo muestra un aviso al autorizar."
-step "Si «Publish app» sigue gris, a «Branding» le falta un campo: revísala y guarda."
-pause "¿App «In production» con el permiso freebusy? Enter para seguir"
+step "Ve a «Audience» → «Test users» → «Add users» y agrega la cuenta de prueba → «Save»."
+warn "La app queda en «Testing»: el refresh token caduca a los 7 días. Renuévalo corriendo este wizard otra vez."
+note "Publicarla exige un dominio propio verificado: Google no acepta ghycs.vercel.app para el branding."
+pause "¿Permiso freebusy agregado y cuenta de prueba en «Test users»? Enter para seguir"
 
 stage "Cliente OAuth" 3
 open_url "https://console.cloud.google.com/auth/clients/create"
@@ -246,7 +239,7 @@ step "Engrane (arriba a la derecha): marca «Use your own OAuth credentials» y 
 step "En ese mismo panel deja «Access type: Offline» y «Force prompt: Consent Screen». Cierra."
 step "Paso 1, «Input your own scopes»: pega $ALCANCE → «Authorize APIs»."
 step "Entra con la cuenta de prueba. Ante «Google no verificó esta app»: «Advanced» → «Go to … (unsafe)» → «Continue»."
-note "Si sale «Access blocked … 403: access_denied»: la app sigue en «Testing». Vuelve a «Audience» y publícala (tarda unos minutos)."
+note "Si sale «Access blocked … 403: access_denied»: la cuenta no está en «Audience» → «Test users»."
 step "Paso 2: «Exchange authorization code for tokens» y copia el «Refresh token»."
 ask_secret GOOGLE_REFRESH_TOKEN "Pega el refresh token:"
 

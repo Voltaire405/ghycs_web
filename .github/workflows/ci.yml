@@ -21,6 +21,8 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
         # Cuenta de prueba: sin estos secretos, la suite de contrato contra Google se omite.
+        # La app OAuth está en «Testing»: el refresh token caduca a los 7 días; se renueva con
+        # scripts/credenciales-google.sh.
         env:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_TEST_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_TEST_CLIENT_SECRET }}
