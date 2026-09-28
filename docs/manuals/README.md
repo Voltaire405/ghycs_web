@@ -39,10 +39,10 @@ Los textos entre comillas «así» son los que se ven en pantalla. Donde la plan
 |---|---|---|
 | 1 | [Entrar y salir de la administración](gestor/01-entrar-y-salir.md) | Parcial · Now |
 | 2 | [Enterarse de una solicitud nueva](gestor/02-enterarse-de-una-solicitud-nueva.md) | Previsto · Next |
-| 3 | [Revisar las solicitudes](gestor/03-revisar-las-solicitudes.md) | Disponible · Now |
+| 3 | [Revisar las solicitudes](gestor/03-revisar-las-solicitudes.md) | Parcial · Now |
 | 4 | [Resolver una invitación que no se envió](gestor/04-resolver-una-invitacion-no-enviada.md) | Parcial · Now |
 | 5 | [Cerrar una cita](gestor/05-cerrar-una-cita.md) | Parcial · Now |
-| 6 | [Registrar notas de una solicitud](gestor/06-registrar-notas.md) | Disponible · Now |
+| 6 | [Registrar notas de una solicitud](gestor/06-registrar-notas.md) | Parcial · Now |
 | 7 | [Retomar una solicitud con la cita cancelada](gestor/07-retomar-una-solicitud-cancelada.md) | Parcial · Now |
 | 8 | [Bloquear su tiempo para que no le agenden](gestor/08-bloquear-su-tiempo.md) | Disponible · Now |
 | 9 | [Administrar el asistente](gestor/09-administrar-el-asistente.md) | Previsto · Later |

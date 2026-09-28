@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS.
 - **Para qué**: no perder al prestador que canceló: ya contó qué necesita y sigue siendo trabajo pendiente.
-- **Estado**: Parcial · Now. La solicitud cancelada se conserva y se ve en el listado; el aviso por correo y el retiro del evento están previstos. El contacto se hace por fuera del sitio.
+- **Estado**: Parcial · Now. La solicitud cancelada se conserva y se ve en el listado; el aviso por correo y el retiro del evento están previstos. El contacto se hace por fuera del sitio. En el sitio publicado la administración responde «no encontrada» hasta que exista la entrada con Google.
 - **Requisitos**: RP-F-012, RP-F-023.
 
 ## Qué significa «Cancelada»

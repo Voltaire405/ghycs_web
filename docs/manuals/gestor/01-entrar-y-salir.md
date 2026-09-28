@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS incluido en la lista de acceso.
 - **Para qué**: abrir la administración para atender las solicitudes, y cerrarla al terminar.
-- **Estado**: Parcial · Now. Hoy la pantalla pide correo y contraseña y deja entrar a cualquiera; está previsto entrar con la cuenta de Google.
+- **Estado**: Parcial · Now. Hoy la pantalla pide correo y contraseña y deja entrar a cualquiera; está previsto entrar con la cuenta de Google. En el sitio publicado la administración responde «no encontrada» hasta que exista la entrada con Google.
 - **Requisitos**: RP-F-013, RC-5 (ADR-0006).
 
 ## Antes de empezar

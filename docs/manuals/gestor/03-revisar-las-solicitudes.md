@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS con sesión abierta.
 - **Para qué**: ver qué solicitudes hay, cuáles atender primero y el detalle de cada una.
-- **Estado**: Disponible · Now. Muestra las solicitudes reales, que se conservan tras reinicios y despliegues del sitio.
+- **Estado**: Parcial · Now. Muestra las solicitudes reales, que se conservan tras reinicios y despliegues del sitio. En el sitio publicado la administración responde «no encontrada» hasta que exista la entrada con Google.
 - **Requisitos**: RP-F-012, RP-F-014, RP-F-015, RP-F-016.
 
 ## El listado
