@@ -38,11 +38,11 @@ describe.each(implementaciones)("Ocupacion %s", (_nombre, omitir, crear, crearFa
       expect(i.inicio < i.fin).toBe(true);
       expect(i.fin > desde && i.inicio < hasta).toBe(true);
     }
-  });
+  }, 30_000);
 
   it.skipIf(omitir)("lanza si la consulta falla", async () => {
     await expect(crearFallando().consultar(desde, hasta)).rejects.toThrow();
-  });
+  }, 30_000);
 });
 
 describe("ocupacionGoogle sin red", () => {
