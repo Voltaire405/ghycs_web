@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   title: { default: "GHYCS", template: "%s · GHYCS" },
   description:
     "Asesoría y acompañamiento a prestadores de servicios de salud en Colombia para cumplir las condiciones de habilitación y mejorar la calidad de su atención.",
+  // Propiedad de Search Console: Google exige el dominio verificado para publicar la app OAuth de FreeBusy.
+  verification: { google: "FnGdWO4RYqDgL-nN5QrVeImXkSX2RR9M5PZFbFcvS54" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
