@@ -227,6 +227,7 @@ step "Ve a «Data Access» → «Add or remove scopes»; en «Manually add scope
 step "Ve a «Audience» → «Publish app» → confirma. «Publishing status» debe decir «In production»."
 warn "En «Testing» el refresh token caduca a los 7 días y CI fallaría con invalid_grant."
 note "No envíes la app a verificación: sin verificar funciona, Google solo muestra un aviso al autorizar."
+step "Si «Publish app» sigue gris, a «Branding» le falta un campo: revísala y guarda."
 pause "¿App «In production» con el permiso freebusy? Enter para seguir"
 
 stage "Cliente OAuth" 3
@@ -243,6 +244,7 @@ step "Engrane (arriba a la derecha): marca «Use your own OAuth credentials» y 
 step "En ese mismo panel deja «Access type: Offline» y «Force prompt: Consent Screen». Cierra."
 step "Paso 1, «Input your own scopes»: pega $ALCANCE → «Authorize APIs»."
 step "Entra con la cuenta de prueba. Ante «Google no verificó esta app»: «Advanced» → «Go to … (unsafe)» → «Continue»."
+note "Si sale «Access blocked … 403: access_denied»: la app sigue en «Testing». Vuelve a «Audience» y publícala (tarda unos minutos)."
 step "Paso 2: «Exchange authorization code for tokens» y copia el «Refresh token»."
 ask_secret GOOGLE_REFRESH_TOKEN "Pega el refresh token:"
 
