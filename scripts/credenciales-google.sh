@@ -198,9 +198,10 @@ cd "$(dirname "$0")/.."
 ENV_FILE="apps/web/.env.local"
 ALCANCE="https://www.googleapis.com/auth/calendar.freebusy"
 PLAYGROUND="https://developers.google.com/oauthplayground"
+SITIO="https://ghycs.vercel.app"  # inicio y política de datos que exige Branding para publicar
 
 TOTAL_STAGES=7
-TOTAL_MINUTES=20
+TOTAL_MINUTES=21
 
 banner "Credenciales de Google FreeBusy para pruebas"
 
@@ -213,24 +214,26 @@ pause "¿Proyecto seleccionado? Enter para seguir"
 
 stage "Habilitar Google Calendar API" 1
 open_url "https://console.cloud.google.com/apis/library/calendar-json.googleapis.com"
-step "Pulsa «Habilitar» (si dice «Administrar», ya está habilitada)."
+step "Pulsa «Enable» (si dice «Manage», ya está habilitada)."
 pause "¿Habilitada? Enter para seguir"
 
-stage "Pantalla de consentimiento OAuth" 4
-open_url "https://console.cloud.google.com/auth/overview"
-step "Si aparece «Comenzar»: nombre de la app, correo de asistencia, público «Externo», correo de contacto, acepta y crea."
-step "Ve a «Acceso a los datos» → «Agregar o quitar permisos»."
-step "En «Agregar permisos manualmente» pega: $ALCANCE → «Agregar a la tabla» → «Actualizar» → «Guardar»."
-step "Ve a «Público» → «Publicar la app» → confirma. Debe quedar «En producción»."
-warn "En «Prueba» el refresh token caduca a los 7 días y CI fallaría con invalid_grant."
-note "Sin verificar la app funciona: Google solo muestra un aviso al autorizar."
-pause "¿App en producción con el permiso freebusy? Enter para seguir"
+stage "Pantalla de consentimiento OAuth" 5
+open_url "https://console.cloud.google.com/auth/branding"
+step "Si aparece «Get started»: app name, user support email, audience «External», contact email, acepta y crea."
+step "En «Branding» → «App domain»: Application home page = $SITIO/"
+step "Application privacy policy link = $SITIO/politica-de-datos"
+step "En «Authorized domains» agrega: ${SITIO#https://} → «Save»."
+step "Ve a «Data Access» → «Add or remove scopes»; en «Manually add scopes» pega $ALCANCE → «Add to table» → «Update» → «Save»."
+step "Ve a «Audience» → «Publish app» → confirma. «Publishing status» debe decir «In production»."
+warn "En «Testing» el refresh token caduca a los 7 días y CI fallaría con invalid_grant."
+note "No envíes la app a verificación: sin verificar funciona, Google solo muestra un aviso al autorizar."
+pause "¿App «In production» con el permiso freebusy? Enter para seguir"
 
 stage "Cliente OAuth" 3
 open_url "https://console.cloud.google.com/auth/clients/create"
-step "Tipo de aplicación: «Aplicación web». Nombre: «ghycs-pruebas»."
-step "En «URI de redireccionamiento autorizados» agrega: $PLAYGROUND"
-step "Pulsa «Crear» y copia el ID de cliente y el secreto (el secreto puede mostrarse una sola vez)."
+step "Application type: «Web application». Name: «ghycs-pruebas»."
+step "En «Authorized redirect URIs» agrega: $PLAYGROUND"
+step "Pulsa «Create» y copia el Client ID y el Client secret (el secreto puede mostrarse una sola vez)."
 ask GOOGLE_CLIENT_ID "Pega el ID de cliente (termina en .apps.googleusercontent.com):"
 ask_secret GOOGLE_CLIENT_SECRET "Pega el secreto del cliente:"
 
@@ -239,7 +242,7 @@ open_url "$PLAYGROUND"
 step "Engrane (arriba a la derecha): marca «Use your own OAuth credentials» y pega el ID y el secreto."
 step "En ese mismo panel deja «Access type: Offline» y «Force prompt: Consent Screen». Cierra."
 step "Paso 1, «Input your own scopes»: pega $ALCANCE → «Authorize APIs»."
-step "Entra con la cuenta de prueba. Ante «Google no verificó esta app»: «Configuración avanzada» → «Ir a …» → «Continuar»."
+step "Entra con la cuenta de prueba. Ante «Google no verificó esta app»: «Advanced» → «Go to … (unsafe)» → «Continue»."
 step "Paso 2: «Exchange authorization code for tokens» y copia el «Refresh token»."
 ask_secret GOOGLE_REFRESH_TOKEN "Pega el refresh token:"
 
