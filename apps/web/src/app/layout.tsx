@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es-CO" className={`${lora.variable} ${sourceSans.variable} h-full`}>
+    <html lang="es-CO" data-tema="claro" className={`${lora.variable} ${sourceSans.variable} h-full`}>
       <body className="min-h-full flex flex-col">
         {children}
       </body>

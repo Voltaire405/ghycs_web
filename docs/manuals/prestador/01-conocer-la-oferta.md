@@ -2,7 +2,7 @@
 
 - **Quién**: prestador de servicios de salud (IPS, profesional independiente o entidad con objeto social diferente).
 - **Para qué**: saber qué hace GHYCS, quién lo hará y dónde atiende, para decidir si agenda una cita.
-- **Estado**: Parcial · Next. Hoy existe la página de inicio con los tres tipos de prestador; el portafolio, la presentación de los socios y la cobertura están previstos.
+- **Estado**: Parcial · Next. El inicio muestra los tres tipos de prestador, los momentos en que llega, un resumen de los servicios y cómo funciona la cita; el detalle del portafolio, la presentación de los socios y la cobertura están previstos.
 - **Requisitos**: RP-F-001, RP-F-002, RP-F-003, RP-F-004, RP-F-005, RP-L-003, RP-L-004.
 
 ## Qué encontrará
@@ -10,6 +10,8 @@
 GHYCS asesora y acompaña a los prestadores de servicios de salud en Colombia para cumplir las condiciones de habilitación y mejorar la calidad de su atención. En el sitio verá:
 
 - **Para quién es**: los tres tipos de prestador que atiende GHYCS.
+- **En qué momento llega**: habilitación inicial, novedad, hallazgo de una visita o cierre de un servicio. Los dos últimos se atienden primero.
+- **Así funciona**: agenda la cita en el sitio, conversa con GHYCS por videollamada sin costo y recibe un plan de trabajo.
 - **Servicios**: en qué consisten la asesoría, el acompañamiento y el PAMEC, qué recibe usted en cada uno y cuánto suele tomar.
 - **Quiénes somos**: los tres socios, con su nombre, profesión, tarjeta profesional cuando aplica y trayectoria.
 - **Cobertura y modalidad**: el territorio que cubre GHYCS y si la atención es virtual, presencial o mixta.
@@ -18,13 +20,13 @@ En todas las páginas, arriba a la derecha, está el botón «Agende su cita». 
 
 ## Pasos
 
-1. Abra el sitio de GHYCS. Llega a la página de inicio, con el título «Habilitación y calidad para su servicio de salud».
+1. Abra el sitio de GHYCS. Llega a la página de inicio, con el título «Habilitación y calidad para su servicio de salud» sobre una foto de un consultorio.
 2. Baje hasta **«Para quién es»** y ubique la tarjeta que lo describe:
    - **IPS**: institución que abre, modifica o recupera un servicio en el REPS.
    - **Profesional independiente**: persona que presta servicios de salud por cuenta propia.
    - **Entidad con objeto social diferente**: organización cuyo fin principal no es la salud, pero presta servicios de salud a sus trabajadores o a poblaciones específicas.
 3. Si quiere saber más antes de agendar, abra desde el menú las páginas de servicios, de los socios y de cobertura. **⚠ Por definir**: nombre y ubicación de esas páginas en el menú (el PRD las exige; el diseño de navegación no las fija).
-4. Cuando esté listo, toque «Agende su cita» en su tarjeta, en el menú o al final de cualquier página. Continúa en [Agendar una cita](02-agendar-una-cita.md).
+4. Cuando esté listo, toque «Agende su cita» en la portada, en su tarjeta, arriba a la derecha o en «¿Hablamos de su servicio?», al final del inicio. Continúa en [Agendar una cita](02-agendar-una-cita.md).
 
 ## Caminos alternativos y problemas
 

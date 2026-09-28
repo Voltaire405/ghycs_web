@@ -12,10 +12,11 @@ atenderla.
   «Agende su cita» aunque la ruta sea `/solicitar`.
 - La reunión se llama **la cita**, nunca «cita de diagnóstico»: «diagnóstico» es un
   término a evitar; el trabajo se llama **autoevaluación**.
-- El asistente no interpreta la norma: no cita la Resolución 3100 de 2019, no dice qué
-  estándares aplican a un prestador concreto, no da plazos ni cifras, no promete
-  resultados. Cuando la pregunta cruza ese límite, deriva a `/solicitar`.
-- El sitio no enumera el marco normativo.
+- El asistente no interpreta la norma: no dice qué estándares aplican a un prestador
+  concreto, no da plazos ni cifras, no promete resultados. Cuando la pregunta cruza ese
+  límite, deriva a `/solicitar`.
+- El sitio no enumera el marco normativo: solo nombra las normas ancla, como la
+  Resolución 3100 de 2019 (ADR-0002).
 
 ## Color
 
@@ -43,7 +44,8 @@ en toda la interfaz. En textos largos, ancho de línea de 68 caracteres: clase `
 ## Modo oscuro
 
 Implementado con `prefers-color-scheme` y anulable con `[data-tema="claro"]` en la raíz.
-Está sin revisión visual: si diseñas una pantalla, revísala en ambos modos o dilo.
+El sitio fija `data-tema="claro"`: el modo oscuro está sin revisión visual y el logo es
+un JPEG con fondo marfil.
 
 ## Superficies típicas del producto
 
