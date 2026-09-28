@@ -193,6 +193,8 @@ finish() {
 # Credenciales de FreeBusy para una cuenta de Google de prueba (ADR-0004):
 # GOOGLE_* en apps/web/.env.local y GOOGLE_TEST_* como secretos de GitHub para CI.
 cd "$(dirname "$0")/.."
+# Sin terminal (p. ej. el prefijo `!` de Claude Code) cada pregunta lee vacío y el wizard pasaría de largo.
+[[ -t 0 ]] || { echo "Corre este wizard en una terminal interactiva: scripts/credenciales-google.sh" >&2; exit 1; }
 ENV_FILE="apps/web/.env.local"
 ALCANCE="https://www.googleapis.com/auth/calendar.freebusy"
 PLAYGROUND="https://developers.google.com/oauthplayground"
