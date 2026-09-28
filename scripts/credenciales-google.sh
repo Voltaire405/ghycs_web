@@ -201,7 +201,7 @@ PLAYGROUND="https://developers.google.com/oauthplayground"
 SITIO="https://ghycs.vercel.app"  # inicio y política de datos que exige Branding para publicar
 
 TOTAL_STAGES=7
-TOTAL_MINUTES=21
+TOTAL_MINUTES=26
 
 banner "Credenciales de Google FreeBusy para pruebas"
 
@@ -217,13 +217,15 @@ open_url "https://console.cloud.google.com/apis/library/calendar-json.googleapis
 step "Pulsa «Enable» (si dice «Manage», ya está habilitada)."
 pause "¿Habilitada? Enter para seguir"
 
-stage "Pantalla de consentimiento OAuth" 5
+stage "Pantalla de consentimiento OAuth" 10
 open_url "https://console.cloud.google.com/auth/branding"
 step "Si aparece «Get started»: app name, user support email, audience «External», contact email, acepta y crea."
 step "En «Branding» → «App domain»: Application home page = $SITIO/"
 step "Application privacy policy link = $SITIO/politica-de-datos"
 step "En «Authorized domains» agrega: ${SITIO#https://} → «Save»."
 step "Ve a «Data Access» → «Add or remove scopes»; en «Manually add scopes» pega $ALCANCE → «Add to table» → «Update» → «Save»."
+step "Si Google lo pide al publicar: «Verification Center» → «Verify branding». Tarda hasta 5 minutos; espera a que termine."
+note "  Verification Center: https://console.cloud.google.com/auth/verification"
 step "Ve a «Audience» → «Publish app» → confirma. «Publishing status» debe decir «In production»."
 warn "En «Testing» el refresh token caduca a los 7 días y CI fallaría con invalid_grant."
 note "No envíes la app a verificación: sin verificar funciona, Google solo muestra un aviso al autorizar."
