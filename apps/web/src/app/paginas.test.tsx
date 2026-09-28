@@ -20,7 +20,7 @@ import Detalle from "./(gestor)/admin/solicitudes/[id]/page";
 const calendario = vi.hoisted(() => ({ falla: false }));
 vi.mock("@/modulos/solicitudes/componer", async () => {
   const { componerCasos } = await import("@/modulos/solicitudes/casos");
-  const { ocupacionEnMemoria, relojDelSistema, repositorioEnMemoria } = await import(
+  const { calendarioEnMemoria, ocupacionEnMemoria, relojDelSistema, repositorioEnMemoria } = await import(
     "@/modulos/solicitudes/infraestructura/falsos"
   );
   const { leerHorarioBase } = await import("@/modulos/solicitudes/infraestructura/horario-base");
@@ -30,7 +30,7 @@ vi.mock("@/modulos/solicitudes/componer", async () => {
   const ocupacion = {
     consultar: (desde: Date, hasta: Date) => ocupacionEnMemoria([], calendario.falla).consultar(desde, hasta),
   };
-  return { casos: componerCasos({ ocupacion, repositorio, reloj: relojDelSistema, horario }) };
+  return { casos: componerCasos({ ocupacion, calendario: calendarioEnMemoria(), repositorio, reloj: relojDelSistema, horario }) };
 });
 // Las páginas del gestor se renderizan con una sesión abierta; la redirección sin sesión se prueba en `modulos/acceso`.
 vi.mock("@/modulos/acceso/componer", () => ({

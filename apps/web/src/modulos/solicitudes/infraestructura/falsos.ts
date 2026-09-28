@@ -1,5 +1,5 @@
 import type { Intervalo } from "../dominio/disponibilidad";
-import type { Ocupacion, RepositorioSolicitudes, Reloj } from "../dominio/puertos";
+import type { Calendario, EventoCita, Ocupacion, RepositorioSolicitudes, Reloj } from "../dominio/puertos";
 import type { Solicitud, SolicitudNueva } from "../dominio/solicitud";
 
 /**
@@ -14,6 +14,22 @@ export function ocupacionEnMemoria(intervalos: Intervalo[] = [], falla = false):
     async consultar(desde, hasta) {
       if (falla) throw new Error("ocupación no disponible");
       return intervalos.filter((i) => i.fin > desde && i.inicio < hasta);
+    },
+  };
+}
+
+/** Calendario que guarda los eventos creados; con `falla` lanza como Google caído. */
+export function calendarioEnMemoria(falla = false): Calendario & { eventos: EventoCita[]; ids: string[] } {
+  const eventos: EventoCita[] = [];
+  const ids: string[] = [];
+  return {
+    eventos,
+    ids,
+    async crearEvento(evento) {
+      if (falla) throw new Error("calendario no disponible");
+      eventos.push(evento);
+      ids.push(crypto.randomUUID());
+      return ids.at(-1)!;
     },
   };
 }
@@ -38,7 +54,7 @@ export function repositorioEnMemoria(duracionMinutos: number, guardadas: Solicit
         token: crypto.randomUUID(),
         creadaEn: new Date(),
         citaEstado: "agendada",
-        sincronizacion: "ok",
+        sincronizacion: "pendiente",
         notasGestor: "",
         eventoId: null,
       };

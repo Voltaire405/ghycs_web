@@ -1,11 +1,5 @@
 import type { Ocupacion } from "../dominio/puertos";
-
-export interface CredencialesGoogle {
-  clientId: string;
-  clientSecret: string;
-  refreshToken: string;
-  calendarId: string;
-}
+import { jsonOLanza, limite, tokenDeAcceso, type CredencialesGoogle } from "./google";
 
 type RespuestaFreeBusy = {
   calendars?: Record<string, { busy?: { start: string; end: string }[]; errors?: { reason: string }[] }>;
@@ -14,31 +8,16 @@ type RespuestaFreeBusy = {
 /**
  * Ocupación del gestor según FreeBusy de su Google Calendar (ADR-0004). Cualquier falla
  * —token, red, calendario inexistente— lanza, para que no se ofrezca ningún horario (RS-F-009).
- * ponytail: pide un access token en cada consulta; guárdalo hasta que expire si el tráfico lo pide.
  */
 export function ocupacionGoogle(credenciales: CredencialesGoogle, fetch = globalThis.fetch): Ocupacion {
-  const jsonOLanza = async <T>(r: Response): Promise<T> => {
-    if (!r.ok) throw new Error(`Google respondió ${r.status}: ${await r.text()}`);
-    return r.json() as Promise<T>;
-  };
-
   return {
     async consultar(desde, hasta) {
-      const { access_token } = await jsonOLanza<{ access_token: string }>(
-        await fetch("https://oauth2.googleapis.com/token", {
-          method: "POST",
-          body: new URLSearchParams({
-            grant_type: "refresh_token",
-            client_id: credenciales.clientId,
-            client_secret: credenciales.clientSecret,
-            refresh_token: credenciales.refreshToken,
-          }),
-        }),
-      );
+      const acceso = await tokenDeAcceso(credenciales, fetch);
       const respuesta = await jsonOLanza<RespuestaFreeBusy>(
         await fetch("https://www.googleapis.com/calendar/v3/freeBusy", {
           method: "POST",
-          headers: { authorization: `Bearer ${access_token}`, "content-type": "application/json" },
+          signal: limite(),
+          headers: { authorization: `Bearer ${acceso}`, "content-type": "application/json" },
           body: JSON.stringify({
             timeMin: desde.toISOString(),
             timeMax: hasta.toISOString(),

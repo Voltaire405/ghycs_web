@@ -2,7 +2,7 @@
 
 - **Quién**: prestador de servicios de salud.
 - **Para qué**: enviar a GHYCS su solicitud de asesoría o acompañamiento con la cita ya agendada, en un solo paso.
-- **Estado**: Parcial · Now. El formulario, la elección de hora y la confirmación en pantalla funcionan, y las horas ofrecidas descuentan la ocupación real del gestor en Google Calendar; los correos todavía no se envían.
+- **Estado**: Parcial · Now. El formulario, la elección de hora y la confirmación en pantalla funcionan, y las horas ofrecidas descuentan la ocupación real del gestor en Google Calendar; la invitación de calendario con la videollamada ya llega, y la confirmación de GHYCS por correo todavía no se envía.
 - **Requisitos**: RP-F-005 a RP-F-009, RP-F-021, RP-L-001, RP-NF-002.
 
 ## Antes de empezar

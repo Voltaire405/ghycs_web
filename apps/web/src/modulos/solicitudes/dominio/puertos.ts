@@ -8,6 +8,19 @@ export interface Ocupacion {
   consultar(desde: Date, hasta: Date): Promise<Intervalo[]>;
 }
 
+/** Cita en el calendario del gestor, con videollamada y el prospecto invitado. */
+export interface EventoCita {
+  titulo: string;
+  inicio: Date;
+  fin: Date;
+  invitado: string;
+}
+
+export interface Calendario {
+  /** Crea el evento con videollamada e invita al prospecto; devuelve su identificador. Lanza si falla (RP-F-010). */
+  crearEvento(evento: EventoCita): Promise<string>;
+}
+
 export interface RepositorioSolicitudes {
   /** Citas ya agendadas en el rango; también ocupan el horario (RS-F-002). */
   agendadas(desde: Date, hasta: Date): Promise<Intervalo[]>;

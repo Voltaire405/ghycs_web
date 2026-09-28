@@ -28,7 +28,7 @@ Los textos entre comillas «así» son los que se ven en pantalla. Donde la plan
 |---|---|---|
 | 1 | [Conocer la oferta de GHYCS](prestador/01-conocer-la-oferta.md) | Parcial · Next |
 | 2 | [Agendar una cita](prestador/02-agendar-una-cita.md) | Parcial · Now |
-| 3 | [Recibir la invitación y asistir a la cita](prestador/03-asistir-a-la-cita.md) | Previsto · Now |
+| 3 | [Recibir la invitación y asistir a la cita](prestador/03-asistir-a-la-cita.md) | Parcial · Now |
 | 4 | [Consultar o cancelar su cita](prestador/04-consultar-o-cancelar-su-cita.md) | Parcial · Now |
 | 5 | [Conocer y ejercer sus derechos sobre sus datos](prestador/05-sus-datos-personales.md) | Parcial · Now |
 | 6 | [Preguntar al asistente](prestador/06-preguntar-al-asistente.md) | Previsto · Later |

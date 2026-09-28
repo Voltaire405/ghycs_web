@@ -39,7 +39,8 @@ export function repositorioTurso(bd: Bd, duracionMinutos: number): RepositorioSo
         token: crypto.randomUUID(),
         creadaEn: new Date(),
         citaEstado: "agendada",
-        sincronizacion: "ok",
+        // Pendiente hasta que el evento exista: un corte entre guardar y crearlo queda destacado (RP-F-016).
+        sincronizacion: "pendiente",
         notasGestor: "",
         eventoId: null,
       };

@@ -2,7 +2,7 @@
 
 - **Quién**: prestador que ya agendó su cita.
 - **Para qué**: tener la cita en su calendario y entrar a la videollamada el día acordado.
-- **Estado**: Previsto · Now. Hoy la página de confirmación anuncia la invitación, pero los correos aún no se envían.
+- **Estado**: Parcial · Now. La invitación de calendario con la videollamada ya llega; la confirmación de GHYCS aún no se envía.
 - **Requisitos**: RP-F-009, RP-F-010, RP-F-021.
 
 ## Qué le llega

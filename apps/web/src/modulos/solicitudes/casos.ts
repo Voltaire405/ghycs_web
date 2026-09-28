@@ -7,11 +7,12 @@ import { verSolicitud } from "./aplicacion/ver-solicitud";
 import { actualizarCita } from "./aplicacion/actualizar-cita";
 import { registrarNotas } from "./aplicacion/registrar-notas";
 import type { HorarioBase } from "./dominio/disponibilidad";
-import type { Ocupacion, RepositorioSolicitudes, Reloj } from "./dominio/puertos";
+import type { Calendario, Ocupacion, RepositorioSolicitudes, Reloj } from "./dominio/puertos";
 
 /** Casos de uso del módulo sobre los puertos que se le den; `componer.ts` le pasa los reales. */
 export function componerCasos(puertos: {
   ocupacion: Ocupacion;
+  calendario: Calendario;
   repositorio: RepositorioSolicitudes;
   reloj: Reloj;
   horario: HorarioBase;

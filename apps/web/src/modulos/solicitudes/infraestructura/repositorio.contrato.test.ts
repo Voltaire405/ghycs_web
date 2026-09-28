@@ -49,10 +49,10 @@ const nueva = (citaInicio = lunes8, nombre = "Clínica San Rafael"): SolicitudNu
 describe.each(implementaciones)("RepositorioSolicitudes %s", (_nombre, crearPar) => {
   const crear = async () => (await crearPar())[0];
 
-  it("guarda la solicitud agendada, sincronizada, sin notas ni evento, y la devuelve por id y por token", async () => {
+  it("guarda la solicitud agendada, pendiente de sincronizar, sin notas ni evento, y la devuelve por id y por token", async () => {
     const repo = await crear();
     const s = await repo.guardar(nueva());
-    expect(s).toMatchObject({ ...nueva(), citaEstado: "agendada", sincronizacion: "ok", notasGestor: "", eventoId: null });
+    expect(s).toMatchObject({ ...nueva(), citaEstado: "agendada", sincronizacion: "pendiente", notasGestor: "", eventoId: null });
     expect(await repo.porId(s!.id)).toEqual(s);
     expect(await repo.porToken(s!.token)).toEqual(s);
     expect(await repo.todas()).toEqual([s]);

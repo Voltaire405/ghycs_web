@@ -196,7 +196,8 @@ cd "$(dirname "$0")/.."
 # Sin terminal (p. ej. el prefijo `!` de Claude Code) cada pregunta lee vacío y el wizard pasaría de largo.
 [[ -t 0 ]] || { echo "Corre este wizard en una terminal interactiva: scripts/credenciales-google.sh" >&2; exit 1; }
 ENV_FILE="apps/web/.env.local"
-ALCANCE="https://www.googleapis.com/auth/calendar.freebusy"
+# FreeBusy para la disponibilidad y events para crear la cita con videollamada.
+ALCANCE="https://www.googleapis.com/auth/calendar.freebusy https://www.googleapis.com/auth/calendar.events"
 PLAYGROUND="https://developers.google.com/oauthplayground"
 
 TOTAL_STAGES=7
@@ -219,11 +220,11 @@ pause "¿Habilitada? Enter para seguir"
 stage "Pantalla de consentimiento OAuth" 3
 open_url "https://console.cloud.google.com/auth/overview"
 step "Si aparece «Get started»: app name «GHYCS», user support email, audience «External», contact email, acepta y crea."
-step "Ve a «Data Access» → «Add or remove scopes»; en «Manually add scopes» pega $ALCANCE → «Add to table» → «Update» → «Save»."
+step "Ve a «Data Access» → «Add or remove scopes»; en «Manually add scopes» pega los dos permisos: ${ALCANCE// /, } → «Add to table» → «Update» → «Save»."
 step "Ve a «Audience» → «Test users» → «Add users» y agrega la cuenta de prueba → «Save»."
 warn "La app queda en «Testing»: el refresh token caduca a los 7 días. Renuévalo corriendo este wizard otra vez."
 note "Publicarla exige un dominio propio verificado: Google no acepta ghycs.vercel.app para el branding."
-pause "¿Permiso freebusy agregado y cuenta de prueba en «Test users»? Enter para seguir"
+pause "¿Permisos freebusy y events agregados y cuenta de prueba en «Test users»? Enter para seguir"
 
 stage "Cliente OAuth" 3
 open_url "https://console.cloud.google.com/auth/clients/create"
