@@ -20,8 +20,14 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+        # Cuenta de prueba: sin estos secretos, la suite de contrato contra Google se omite.
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_TEST_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_TEST_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_TEST_REFRESH_TOKEN }}
+          GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_TEST_CALENDAR_ID }}
       - run: pnpm build
-        # Sin credenciales reales: el build solo valida el entorno. Fuera de `pnpm test`, para que la suite contra Google se omita.
+        # Valores de relleno: el build solo valida el entorno, no consulta Google.
         env:
           GOOGLE_CLIENT_ID: ci
           GOOGLE_CLIENT_SECRET: ci
