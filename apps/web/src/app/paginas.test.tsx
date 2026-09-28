@@ -150,9 +150,11 @@ it("un identificador desconocido devuelve la 404 del gestor", async () => {
   ).rejects.toThrow(/NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/);
 });
 
-it("ningún archivo de src tiene valores hexadecimales (RS-NF-007)", () => {
+// `app/tokens.css` es la única fuente de los valores: el resto los consume como tokens.
+it("ningún archivo de src fuera de los tokens tiene valores hexadecimales (RS-NF-007)", () => {
   const conHex = readdirSync("src", { recursive: true })
     .map(String)
+    .filter((f) => f !== "app/tokens.css")
     .filter((f) => /\.(tsx?|css)$/.test(f) && /#[0-9a-f]{3,8}\b/i.test(readFileSync(`src/${f}`, "utf8")));
   expect(conHex).toEqual([]);
 });
