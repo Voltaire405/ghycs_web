@@ -28,6 +28,9 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_TEST_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_TEST_REFRESH_TOKEN }}
           GOOGLE_CALENDAR_ID: ${{ secrets.GOOGLE_TEST_CALENDAR_ID }}
+          # Sin estos, el contrato contra Resend se omite. Envía a la dirección de prueba de Resend.
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CORREO_REMITENTE: ${{ secrets.CORREO_REMITENTE }}
       - run: pnpm build
         # Valores de relleno: el build solo valida el entorno, no consulta Google.
         env:

@@ -7,6 +7,7 @@ Cómo operar el sitio publicado: desplegar, migrar la base, cambiar variables y 
 - Sitio: `https://ghycs.vercel.app`, desplegado por Vercel en cada push a `main`.
 - Calendario: el principal de `jlmarin.ing@gmail.com`, con el refresh token de **prueba**. Las citas y las invitaciones salen de esa cuenta, no de una de GHYCS.
 - Lista de acceso a `/admin` (`CORREOS_SOCIOS`): solo `jlmarin.ing@gmail.com`.
+- Correo de confirmación: Resend, cuenta `ghycs@micromegasoft.com`, clave de **prueba**. Sale de `GHYCS <ghycs@micromegasoft.com>` (`CORREO_REMITENTE`): el dominio `micromegasoft.com` está verificado en Resend, así que llega a cualquier destinatario.
 - La app OAuth de Google sigue en **Testing**: el refresh token caduca a los 7 días. Google rechazó `ghycs.vercel.app` al verificar el branding, así que publicarla exige un dominio propio. Mientras no exista, el token se renueva a mano (ver [Credencial de Google](#credencial-de-google)).
 
 ## Vercel
@@ -18,6 +19,10 @@ Proyecto `ghycs` en el equipo `micromegasoft`. Todo comando lleva `--scope micro
 - El build de Next valida el entorno con `leerEnv()`: una variable exigida que falte rompe el despliegue. Cárgala en Vercel **antes** del push que la exige.
 - Por qué falló un despliegue: `vercel inspect <url> --logs`.
 - Estado del despliegue de un commit, sin abrir el panel: `gh api repos/Voltaire405/ghycs_web/commits/<sha>/status --jq '.statuses[] | select(.context=="Vercel") | .state'`.
+
+## Resend
+
+`RESEND_API_KEY` y `CORREO_REMITENTE` están en Vercel (Production), en `apps/web/.env.local` y como secretos del repo para el contrato de CI. El remitente debe ser de un dominio verificado en la cuenta; se comprueba con `GET https://api.resend.com/domains` (campo `status: verified`). El contrato envía a `delivered@resend.dev`, que simula la entrega sin que nadie reciba nada.
 
 ## Turso
 
@@ -47,7 +52,7 @@ Las redirecciones autorizadas del cliente son OAuth Playground, `https://ghycs.v
 Al terminar un cambio que llega a producción, cubre las tres capas:
 
 1. **CI**: `gh run watch <id> --exit-status` sobre la última ejecución del workflow `CI`. Con los secretos cargados, los contratos contra Google corren y no se omiten: el resumen debe decir «N passed», sin «skipped».
-2. **Contratos contra Google en local**, antes del push, cuando cambia un adaptador de Google:
+2. **Contratos contra Google y Resend en local**, antes del push, cuando cambia uno de sus adaptadores:
    ```sh
    cd apps/web && set -a && . ./.env.local && set +a && pnpm exec vitest run contrato
    ```
