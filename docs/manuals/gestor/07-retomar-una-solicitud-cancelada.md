@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS.
 - **Para qué**: no perder al prestador que canceló: ya contó qué necesita y sigue siendo trabajo pendiente.
-- **Estado**: Parcial · Now. La solicitud cancelada se conserva y se ve en el listado; el aviso por correo y el retiro del evento están previstos. El contacto se hace por fuera del sitio.
+- **Estado**: Parcial · Now. La solicitud cancelada se conserva y se ve en el listado, y el evento sale de su calendario; el aviso por correo está previsto. El contacto se hace por fuera del sitio.
 - **Requisitos**: RP-F-012, RP-F-023.
 
 ## Qué significa «Cancelada»
@@ -24,4 +24,5 @@ El prestador canceló la cita con su enlace privado. Usted recibió un correo de
 | El prestador reagenda | Cada nueva cita crea una **solicitud nueva**. | La solicitud cancelada queda en el listado. Anote en sus notas que se reagendó. **⚠ Por definir**: si se vinculan o se identifican las solicitudes del mismo prestador. |
 | Quiere agendarle usted la cita | La administración no crea ni mueve citas. | Pídale al prestador que agende en el sitio, o cree el evento a mano en su calendario y bloquee esa hora ([Bloquear su tiempo](08-bloquear-su-tiempo.md)). |
 | No quiere que la cancelada siga en el listado | Las solicitudes no se borran ni se archivan. | Deje la conclusión en las notas. **⚠ Por definir**: si hace falta archivar solicitudes resueltas. |
+| La cancelada muestra «Sin sincronizar» | El evento no se pudo retirar de su calendario, o nunca se creó. | Si el evento sigue en su calendario, bórrelo a mano; no cree uno nuevo. |
 | No puede cerrar la cita como «Atendida» o «No asistió» | Una cita cancelada ya está cerrada. | Use solo las notas. |

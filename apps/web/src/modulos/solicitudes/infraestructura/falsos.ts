@@ -18,7 +18,7 @@ export function ocupacionEnMemoria(intervalos: Intervalo[] = [], falla = false):
   };
 }
 
-/** Calendario que guarda los eventos creados; con `falla` lanza como Google caído. */
+/** Calendario que guarda los eventos vigentes; con `falla` lanza como Google caído. */
 export function calendarioEnMemoria(falla = false): Calendario & { eventos: EventoCita[]; ids: string[] } {
   const eventos: EventoCita[] = [];
   const ids: string[] = [];
@@ -30,6 +30,12 @@ export function calendarioEnMemoria(falla = false): Calendario & { eventos: Even
       eventos.push(evento);
       ids.push(crypto.randomUUID());
       return ids.at(-1)!;
+    },
+    async retirarEvento(id) {
+      const i = ids.indexOf(id);
+      if (falla || i < 0) throw new Error("calendario no disponible o evento inexistente");
+      ids.splice(i, 1);
+      eventos.splice(i, 1);
     },
   };
 }

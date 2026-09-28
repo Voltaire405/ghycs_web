@@ -22,7 +22,7 @@ export function componerCasos(puertos: {
     consultarDisponibilidad: consultarDisponibilidad(puertos),
     crearSolicitud: crearSolicitud(puertos),
     consultarPorToken: consultarPorToken({ repositorio, reloj }),
-    cancelarCita: cancelarCita({ repositorio, reloj }),
+    cancelarCita: cancelarCita(puertos),
     listarSolicitudes: listarSolicitudes({ repositorio }),
     verSolicitud: verSolicitud({ repositorio }),
     actualizarCita: actualizarCita({ repositorio }),

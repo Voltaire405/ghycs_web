@@ -2,7 +2,7 @@
 
 - **Quién**: prestador con una cita agendada.
 - **Para qué**: ver la fecha, la hora y el estado de su cita, y cancelarla si no puede asistir, sin crear cuenta ni contraseña.
-- **Estado**: Parcial · Now. La página del enlace privado y la cancelación funcionan; el enlace aún no llega por correo.
+- **Estado**: Parcial · Now. La página del enlace privado y la cancelación funcionan; el enlace aún no llega por correo y el gestor aún no recibe el aviso de la cancelación.
 - **Requisitos**: RP-F-011, RP-F-012, RP-F-021, RP-F-023, RP-R-001.
 
 ## Antes de empezar

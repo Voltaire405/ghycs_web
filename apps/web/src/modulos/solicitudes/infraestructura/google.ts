@@ -12,9 +12,13 @@ export const limite = () => AbortSignal.timeout(10_000);
 export const urlCalendario = (calendarId: string) =>
   `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}`;
 
-export async function jsonOLanza<T>(r: Response): Promise<T> {
+export async function okOLanza(r: Response): Promise<Response> {
   if (!r.ok) throw new Error(`Google respondió ${r.status}: ${await r.text()}`);
-  return r.json() as Promise<T>;
+  return r;
+}
+
+export async function jsonOLanza<T>(r: Response): Promise<T> {
+  return (await okOLanza(r)).json() as Promise<T>;
 }
 
 /**

@@ -1,9 +1,10 @@
 import type { Calendario } from "../dominio/puertos";
-import { jsonOLanza, limite, tokenDeAcceso, urlCalendario, type CredencialesGoogle } from "./google";
+import { jsonOLanza, okOLanza, limite, tokenDeAcceso, urlCalendario, type CredencialesGoogle } from "./google";
 
 /**
  * Cita en el Google Calendar del gestor con videollamada de Meet; Google envía la invitación
  * al prospecto (RP-F-010). Cualquier falla lanza: el caso de uso deja la solicitud `pendiente`.
+ * Al retirar la cita, Google avisa al prospecto de la cancelación (RP-F-023).
  * `enviarInvitaciones` en `false` solo para la suite de contrato, que no debe mandar correos.
  */
 export function calendarioGoogle(
@@ -34,6 +35,14 @@ export function calendarioGoogle(
         }),
       );
       return id;
+    },
+    async retirarEvento(id) {
+      const acceso = await tokenDeAcceso(credenciales, fetch);
+      const url = new URL(`${urlCalendario(credenciales.calendarId)}/events/${encodeURIComponent(id)}`);
+      url.searchParams.set("sendUpdates", enviarInvitaciones ? "all" : "none");
+      await okOLanza(
+        await fetch(url, { method: "DELETE", signal: limite(), headers: { authorization: `Bearer ${acceso}` } }),
+      );
     },
   };
 }

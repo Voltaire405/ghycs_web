@@ -59,6 +59,18 @@ describe.each(implementaciones)("Calendario %s", (_nombre, omitir, crear, crearF
   it.skipIf(omitir)("lanza si la creación falla", async () => {
     await expect(crearFallando().crearEvento(evento)).rejects.toThrow();
   }, 30_000);
+
+  it.skipIf(omitir)("retira un evento creado; retirarlo de nuevo lanza", async () => {
+    const calendario = crear();
+    const id = await calendario.crearEvento(evento);
+    creados.push(id);
+    await calendario.retirarEvento(id);
+    await expect(calendario.retirarEvento(id)).rejects.toThrow();
+  }, 30_000);
+
+  it.skipIf(omitir)("lanza si el retiro falla", async () => {
+    await expect(crearFallando().retirarEvento("evt-1")).rejects.toThrow();
+  }, 30_000);
 });
 
 describe("calendarioGoogle sin red", () => {
@@ -67,7 +79,7 @@ describe("calendarioGoogle sin red", () => {
     const fetch = (async (url: string | URL, init?: RequestInit) => {
       pedidas.push([String(url), init]);
       if (String(url).includes("oauth2")) return new Response(JSON.stringify({ access_token: "acceso" }));
-      return new Response(JSON.stringify({ id: "evt-1" }), { status: estado });
+      return new Response(estado === 204 ? null : JSON.stringify({ id: "evt-1" }), { status: estado });
     }) as typeof globalThis.fetch;
     return { pedidas, calendario: calendarioGoogle({ ...credenciales, calendarId: "cal@ghycs.co" }, fetch) };
   }
@@ -91,6 +103,22 @@ describe("calendarioGoogle sin red", () => {
       conferenceData: { createRequest: { conferenceSolutionKey: { type: "hangoutsMeet" } } },
     });
     expect(cuerpo.conferenceData.createRequest.requestId).toMatch(/\S+/);
+  });
+
+  it("retira el evento y avisa al prospecto de la cancelación", async () => {
+    const { pedidas, calendario } = googleSimulado(204);
+    await calendario.retirarEvento("evt-1");
+
+    const [url, init] = pedidas[1];
+    const u = new URL(url);
+    expect(init?.method).toBe("DELETE");
+    expect(u.pathname).toBe("/calendar/v3/calendars/cal%40ghycs.co/events/evt-1");
+    expect(u.searchParams.get("sendUpdates")).toBe("all");
+    expect(new Headers(init?.headers).get("authorization")).toBe("Bearer acceso");
+  });
+
+  it("lanza si Google rechaza el retiro", async () => {
+    await expect(googleSimulado(410).calendario.retirarEvento("evt-1")).rejects.toThrow(/410/);
   });
 
   it("lanza si Google responde con error", async () => {
