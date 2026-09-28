@@ -2,9 +2,9 @@ import { diaEnBogota } from "../dominio/disponibilidad";
 import type { Solicitud } from "../dominio/solicitud";
 
 /**
- * Solicitudes de muestra de la fase 1: una por estado de la cita más una cita pasada para
- * recorrer `/solicitud/{token}`, y los cuatro momentos con y sin sincronización pendiente
- * para el listado del gestor. Desaparecen con el repositorio de PostgreSQL.
+ * Solicitudes de muestra para el render de páginas: una por estado de la cita más una cita
+ * pasada para recorrer `/solicitud/{token}`, y los cuatro momentos con y sin sincronización
+ * pendiente para el listado del gestor.
  */
 type Muestra = Pick<Solicitud, "token" | "citaEstado" | "momento" | "sincronizacion" | "nombre" | "tipoPrestador"> & {
   diasDesdeHoy: number;
@@ -35,6 +35,7 @@ export const solicitudesDeMuestra = (ahora: Date): Solicitud[] =>
     ...muestra,
     id: `muestra-${i + 1}`,
     notasGestor: "",
+    eventoId: null,
     citaInicio: aLasOcho(ahora, diasDesdeHoy),
     creadaEn: new Date(ahora.getTime() - 3 * 86_400_000),
     correo: "contacto@ejemplo.co",

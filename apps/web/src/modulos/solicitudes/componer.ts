@@ -1,24 +1,18 @@
-import { consultarDisponibilidad } from "./aplicacion/consultar-disponibilidad";
-import { crearSolicitud } from "./aplicacion/crear-solicitud";
-import { relojDelSistema, repositorioEnMemoria } from "./infraestructura/falsos";
+import { conectar } from "@/compartido/bd/cliente";
+import { leerEnv } from "@/compartido/config/env";
+import { componerCasos } from "./casos";
 import type { Ocupacion } from "./dominio/puertos";
 import { diaEnBogota } from "./dominio/disponibilidad";
+import { relojDelSistema } from "./infraestructura/falsos";
 import { leerHorarioBase } from "./infraestructura/horario-base";
-import { solicitudesDeMuestra } from "./infraestructura/muestra";
-import { cancelarCita } from "./aplicacion/cancelar-cita";
-import { consultarPorToken } from "./aplicacion/consultar-por-token";
-import { listarSolicitudes } from "./aplicacion/listar-solicitudes";
-import { verSolicitud } from "./aplicacion/ver-solicitud";
-import { actualizarCita } from "./aplicacion/actualizar-cita";
-import { registrarNotas } from "./aplicacion/registrar-notas";
+import { repositorioTurso } from "./infraestructura/repositorio-turso";
 
 /**
- * Composición del módulo. Fase 1: ocupación y repositorio en memoria, con una ocupación
- * de muestra para que el estado «horario ocupado» sea visible. Las solicitudes de muestra viven
- * en el proceso: lo que se cancele sigue cancelado hasta el siguiente arranque.
+ * Composición del módulo: las solicitudes viven en Turso (ADR-0007). La ocupación sigue
+ * siendo de muestra hasta el adaptador de FreeBusy, para que el estado «horario ocupado» sea visible.
  */
+const env = leerEnv();
 const horario = leerHorarioBase();
-const reloj = relojDelSistema;
 
 /** Muestra: el gestor tiene ocupada la media mañana de todos los días. */
 const ocupacion: Ocupacion = {
@@ -27,15 +21,13 @@ const ocupacion: Ocupacion = {
     return [{ inicio: new Date(`${dia}T09:00:00-05:00`), fin: new Date(`${dia}T11:00:00-05:00`) }];
   },
 };
-const repositorio = repositorioEnMemoria(horario.duracionMinutos, solicitudesDeMuestra(reloj.ahora()));
 
-export const casos = {
-  consultarDisponibilidad: consultarDisponibilidad({ ocupacion, repositorio, reloj, horario }),
-  crearSolicitud: crearSolicitud({ repositorio, ocupacion, reloj, horario }),
-  consultarPorToken: consultarPorToken({ repositorio, reloj }),
-  cancelarCita: cancelarCita({ repositorio, reloj }),
-  listarSolicitudes: listarSolicitudes({ repositorio }),
-  verSolicitud: verSolicitud({ repositorio }),
-  actualizarCita: actualizarCita({ repositorio }),
-  registrarNotas: registrarNotas({ repositorio }),
-};
+export const casos = componerCasos({
+  ocupacion,
+  repositorio: repositorioTurso(
+    conectar({ url: env.DATABASE_URL, authToken: env.DATABASE_AUTH_TOKEN }),
+    horario.duracionMinutos,
+  ),
+  reloj: relojDelSistema,
+  horario,
+});

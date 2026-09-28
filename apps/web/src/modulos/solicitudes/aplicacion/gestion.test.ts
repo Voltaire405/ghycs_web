@@ -21,6 +21,7 @@ const solicitud = (id: string, momento: Momento, hora = "08:00"): Solicitud => (
   citaEstado: "agendada",
   sincronizacion: "ok",
   notasGestor: "",
+  eventoId: null,
 });
 
 const repositorio = (solicitudes: Solicitud[]) => repositorioEnMemoria(60, solicitudes);

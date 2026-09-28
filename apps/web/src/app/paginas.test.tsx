@@ -2,7 +2,7 @@ import axe from "axe-core";
 import { casos } from "@/modulos/solicitudes/componer";
 import { readdirSync, readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { PaginaPublica } from "@/compartido/ui/PaginaPublica";
 import Inicio from "./(publico)/page";
 import Politica from "./(publico)/politica-de-datos/page";
@@ -14,6 +14,21 @@ import LayoutGestor from "./(gestor)/layout";
 import Login from "./(gestor)/login/page";
 import Admin from "./(gestor)/admin/page";
 import Detalle from "./(gestor)/admin/solicitudes/[id]/page";
+
+// Las páginas se renderizan sobre el falso sembrado con una solicitud por estado, sin base de datos.
+vi.mock("@/modulos/solicitudes/componer", async () => {
+  const { componerCasos } = await import("@/modulos/solicitudes/casos");
+  const { ocupacionEnMemoria, relojDelSistema, repositorioEnMemoria } = await import(
+    "@/modulos/solicitudes/infraestructura/falsos"
+  );
+  const { leerHorarioBase } = await import("@/modulos/solicitudes/infraestructura/horario-base");
+  const { solicitudesDeMuestra } = await import("@/modulos/solicitudes/infraestructura/muestra");
+  const horario = leerHorarioBase({});
+  const repositorio = repositorioEnMemoria(horario.duracionMinutos, solicitudesDeMuestra(new Date()));
+  return { casos: componerCasos({ ocupacion: ocupacionEnMemoria(), repositorio, reloj: relojDelSistema, horario }) };
+});
+// Fuera de una petición `connection()` lanza; aquí no hay prerender que evitar.
+vi.mock("next/server", async (original) => ({ ...(await original<object>()), connection: async () => {} }));
 
 const paginas = { "/": Inicio, "/politica-de-datos": Politica };
 

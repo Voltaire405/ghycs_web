@@ -31,6 +31,8 @@ export type Solicitud = SolicitudNueva & {
   citaEstado: EstadoCita;
   sincronizacion: Sincronizacion;
   notasGestor: string;
+  /** Evento de calendario de la cita; `null` hasta que se crea. */
+  eventoId: string | null;
 };
 
 /**

@@ -10,7 +10,7 @@ async function errores(archivo: string, codigo: string) {
 }
 
 it("la presentación no importa infraestructura ni el cliente de bd", async () => {
-  expect(await errores("app/x/page.tsx", `import "@/modulos/solicitudes/infraestructura/repositorio-postgres";`)).toHaveLength(1);
+  expect(await errores("app/x/page.tsx", `import "@/modulos/solicitudes/infraestructura/repositorio-turso";`)).toHaveLength(1);
   expect(await errores("app/x/page.tsx", `import "@/compartido/bd/cliente";`)).toHaveLength(1);
   expect(await errores("app/x/page.tsx", `import "@/modulos/solicitudes/dominio/cita";`)).toHaveLength(1);
   expect(await errores("app/x/page.tsx", `import "@/compartido/config/env";`)).toHaveLength(1);

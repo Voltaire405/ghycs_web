@@ -26,6 +26,7 @@ const solicitud = (citaEstado: EstadoCita, citaInicio = new Date("2026-09-07T08:
   citaEstado,
   sincronizacion: "ok",
   notasGestor: "",
+  eventoId: null,
 });
 
 describe("puedeCancelarse (RS-F-013)", () => {

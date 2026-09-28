@@ -4,7 +4,7 @@ import type { Solicitud, SolicitudNueva } from "../dominio/solicitud";
 
 /**
  * Adaptadores en memoria de la fase 1: los mismos que usan las pruebas de los casos de
- * uso. Se reemplazan por Google Calendar y PostgreSQL, no se descartan.
+ * uso. Se reemplazan por Google Calendar y Turso, no se descartan.
  */
 
 export const relojDelSistema: Reloj = { ahora: () => new Date() };
@@ -40,6 +40,7 @@ export function repositorioEnMemoria(duracionMinutos: number, guardadas: Solicit
         citaEstado: "agendada",
         sincronizacion: "ok",
         notasGestor: "",
+        eventoId: null,
       };
       guardadas.push(solicitud);
       return solicitud;

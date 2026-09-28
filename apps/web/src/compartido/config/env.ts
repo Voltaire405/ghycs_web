@@ -1,17 +1,13 @@
 import { z } from "zod";
 
+/**
+ * Solo se exigen las variables que ya tienen consumidor (RS-NF-014). Cada adaptador nuevo
+ * agrega aquí las suyas: Google, Resend y el acceso del gestor aún no las leen.
+ */
 const esquema = z.object({
   DATABASE_URL: z.string().min(1),
-  ADMIN_EMAIL: z.email(),
-  ADMIN_PASSWORD_HASH: z.string().min(1),
-  IP_HASH_SALT: z.string().min(1),
-  RESEND_API_KEY: z.string().min(1),
-  CORREO_REMITENTE: z.email(),
-  CORREO_GESTOR: z.email(),
-  GOOGLE_CLIENT_ID: z.string().min(1),
-  GOOGLE_CLIENT_SECRET: z.string().min(1),
-  GOOGLE_REFRESH_TOKEN: z.string().min(1),
-  GOOGLE_CALENDAR_ID: z.string().min(1),
+  // Vacía en `.env.example`: una base local no lleva token.
+  DATABASE_AUTH_TOKEN: z.string().optional().transform((v) => v || undefined),
 });
 
 export type Env = z.infer<typeof esquema>;
