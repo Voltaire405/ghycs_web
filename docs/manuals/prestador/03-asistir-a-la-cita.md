@@ -2,7 +2,7 @@
 
 - **Quién**: prestador que ya agendó su cita.
 - **Para qué**: tener la cita en su calendario y entrar a la videollamada el día acordado.
-- **Estado**: Parcial · Now. La invitación de calendario con la videollamada ya llega; la confirmación de GHYCS aún no se envía.
+- **Estado**: Parcial · Now. La invitación de calendario y la confirmación de GHYCS ya llegan; el reenvío de la confirmación por el gestor está previsto.
 - **Requisitos**: RP-F-009, RP-F-010, RP-F-021.
 
 ## Qué le llega
@@ -10,7 +10,7 @@
 Unos dos minutos después de enviar la solicitud, en el correo que escribió en el formulario:
 
 1. **Invitación de calendario** (de Google Calendar): fecha, hora y enlace de la videollamada. Tiene botones para responder si asistirá.
-2. **Confirmación de GHYCS**: fecha, hora y el **enlace privado** de su cita, con el que la consulta o la cancela. **⚠ Por definir**: remitente y asunto del correo (TBD-5 del PRD).
+2. **Confirmación de GHYCS**, con el asunto «Su cita con GHYCS: …» y la fecha: fecha, hora y el **enlace privado** de su cita, con el que la consulta o la cancela. **⚠ Por definir**: remitente del correo (TBD-5 del PRD).
 
 Guarde el correo de confirmación: el enlace privado solo le llega ahí.
 

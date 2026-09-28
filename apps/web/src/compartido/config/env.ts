@@ -2,7 +2,7 @@ import { z } from "zod";
 
 /**
  * Solo se exigen las variables que ya tienen consumidor (RS-NF-014). Cada adaptador nuevo
- * agrega aquí las suyas: Resend aún no las lee.
+ * agrega aquí las suyas.
  */
 const esquemaBd = z.object({
   DATABASE_URL: z.string().min(1),
@@ -24,6 +24,9 @@ const esquema = esquemaBd.extend({
     .string()
     .transform((v) => v.split(",").map((c) => c.trim()).filter(Boolean))
     .pipe(z.array(z.email()).min(1)),
+  // Confirmación al prospecto por Resend (RP-F-021). El remitente admite «Nombre <correo>».
+  RESEND_API_KEY: z.string().min(1),
+  CORREO_REMITENTE: z.string().min(1),
 });
 
 export type Env = z.infer<typeof esquema>;

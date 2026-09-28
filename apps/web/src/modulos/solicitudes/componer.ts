@@ -2,6 +2,7 @@ import { conectar } from "@/compartido/bd/cliente";
 import { leerEnv } from "@/compartido/config/env";
 import { componerCasos } from "./casos";
 import { calendarioGoogle } from "./infraestructura/calendario-google";
+import { correoResend } from "./infraestructura/correo-resend";
 import { relojDelSistema } from "./infraestructura/falsos";
 import { leerHorarioBase } from "./infraestructura/horario-base";
 import { ocupacionGoogle } from "./infraestructura/ocupacion-google";
@@ -23,6 +24,8 @@ const google = {
 export const casos = componerCasos({
   ocupacion: ocupacionGoogle(google),
   calendario: calendarioGoogle(google),
+  // El enlace privado apunta al mismo origen que el acceso del gestor.
+  correo: correoResend({ apiKey: env.RESEND_API_KEY, remitente: env.CORREO_REMITENTE, urlSitio: env.BETTER_AUTH_URL }),
   repositorio: repositorioTurso(
     conectar({ url: env.DATABASE_URL, authToken: env.DATABASE_AUTH_TOKEN }),
     horario.duracionMinutos,

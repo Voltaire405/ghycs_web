@@ -1,7 +1,7 @@
 import { expect, it, vi } from "vitest";
 import type { HorarioBase } from "../dominio/disponibilidad";
 import type { SolicitudNueva } from "../dominio/solicitud";
-import { calendarioEnMemoria, ocupacionEnMemoria, repositorioEnMemoria } from "../infraestructura/falsos";
+import { calendarioEnMemoria, correoEnMemoria, ocupacionEnMemoria, repositorioEnMemoria } from "../infraestructura/falsos";
 import { consultarDisponibilidad } from "./consultar-disponibilidad";
 import { crearSolicitud } from "./crear-solicitud";
 import { cancelarCita } from "./cancelar-cita";
@@ -43,7 +43,7 @@ it("consultar-disponibilidad falla sin ocupación conocida (RS-F-009)", async ()
 });
 
 it("crear-solicitud guarda la solicitud con un token", async () => {
-  const caso = crearSolicitud({ repositorio: repositorioEnMemoria(60), ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario });
+  const caso = crearSolicitud({ repositorio: repositorioEnMemoria(60), ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario });
   const r = await caso.ejecutar(comando());
   expect(r.ok && r.valor.token).toMatch(/^[0-9a-f-]{36}$/);
 });
@@ -51,7 +51,7 @@ it("crear-solicitud guarda la solicitud con un token", async () => {
 it("crear-solicitud crea la cita con videollamada en el calendario y guarda su evento (RP-F-010)", async () => {
   const calendario = calendarioEnMemoria();
   const repositorio = repositorioEnMemoria(60);
-  const r = await crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario, reloj, horario }).ejecutar(comando());
+  const r = await crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario, correo: correoEnMemoria(), reloj, horario }).ejecutar(comando());
 
   expect(calendario.eventos).toEqual([
     {
@@ -72,6 +72,7 @@ it("si el calendario falla, la solicitud queda guardada con sincronización pend
     repositorio,
     ocupacion: ocupacionEnMemoria(),
     calendario: calendarioEnMemoria(true),
+    correo: correoEnMemoria(),
     reloj,
     horario,
   }).ejecutar(comando());
@@ -87,6 +88,7 @@ it("si guardar el evento falla, la solicitud sigue pendiente y el caso tiene éx
     repositorio: caido,
     ocupacion: ocupacionEnMemoria(),
     calendario: calendarioEnMemoria(),
+    correo: correoEnMemoria(),
     reloj,
     horario,
   }).ejecutar(comando());
@@ -96,14 +98,14 @@ it("si guardar el evento falla, la solicitud sigue pendiente y el caso tiene éx
 });
 
 it("crear-solicitud rechaza una hora que nunca se ofreció (RS-F-005)", async () => {
-  const caso = crearSolicitud({ repositorio: repositorioEnMemoria(60), ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario });
+  const caso = crearSolicitud({ repositorio: repositorioEnMemoria(60), ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario });
   const r = await caso.ejecutar(comando(new Date("2026-09-07T12:00:00-05:00")));
   expect(r).toEqual({ ok: false, error: "horario-no-disponible" });
 });
 
 it("una cita agendada deja de ofrecerse (RS-F-002)", async () => {
   const repositorio = repositorioEnMemoria(60);
-  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario };
+  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario };
   await crearSolicitud(puertos).ejecutar(comando());
   const r = await consultarDisponibilidad(puertos).ejecutar({ fecha: "2026-09-07" });
   expect(r.ok && r.valor.map((d) => d.toISOString())).toEqual(["2026-09-07T14:00:00.000Z"]);
@@ -112,10 +114,10 @@ it("una cita agendada deja de ofrecerse (RS-F-002)", async () => {
 it("crear-solicitud rechaza la hora que acaba de ocuparse (RS-F-007)", async () => {
   const repositorio = repositorioEnMemoria(60);
   // La ocupación no ve la cita anterior: solo el candado del repositorio la rechaza.
-  const caso = crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario });
+  const caso = crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario });
   await caso.ejecutar(comando());
   const sinRevalidar = { ...repositorio, agendadas: async () => [] };
-  const r = await crearSolicitud({ repositorio: sinRevalidar, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario }).ejecutar(comando());
+  const r = await crearSolicitud({ repositorio: sinRevalidar, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario }).ejecutar(comando());
   expect(r).toEqual({ ok: false, error: "horario-ocupado" });
 });
 
@@ -126,7 +128,7 @@ it("consultar-por-token no encuentra un token desconocido (RS-F-012)", async () 
 
 it("cancelar-cita libera la hora y conserva la solicitud (RS-F-014)", async () => {
   const repositorio = repositorioEnMemoria(60);
-  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario };
+  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario };
   const creada = await crearSolicitud(puertos).ejecutar(comando());
   const token = creada.ok ? creada.valor.token : "";
 
@@ -145,7 +147,7 @@ it("cancelar-cita libera la hora y conserva la solicitud (RS-F-014)", async () =
 
 it("cancelar-cita rechaza una cita que ya no es cancelable (RS-F-013)", async () => {
   const repositorio = repositorioEnMemoria(60);
-  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario };
+  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario };
   const creada = await crearSolicitud(puertos).ejecutar(comando());
   const token = creada.ok ? creada.valor.token : "";
   await cancelarCita(puertos).ejecutar({ token });
@@ -159,7 +161,7 @@ it("cancelar-cita rechaza una cita que ya no es cancelable (RS-F-013)", async ()
 it("cancelar-cita retira el evento de la cita y la deja sincronizada (RP-F-023)", async () => {
   const repositorio = repositorioEnMemoria(60);
   const calendario = calendarioEnMemoria();
-  const creada = await crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario, reloj, horario }).ejecutar(comando());
+  const creada = await crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario, correo: correoEnMemoria(), reloj, horario }).ejecutar(comando());
   const { id, token } = creada.ok ? creada.valor : { id: "", token: "" };
 
   expect(await cancelarCita({ repositorio, calendario, reloj }).ejecutar({ token })).toEqual({ ok: true, valor: null });
@@ -169,7 +171,7 @@ it("cancelar-cita retira el evento de la cita y la deja sincronizada (RP-F-023)"
 
 it("cancelar-cita sin evento cancela sin intentar retirarlo (RP-F-023)", async () => {
   const repositorio = repositorioEnMemoria(60);
-  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(true), reloj, horario };
+  const puertos = { repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(true), correo: correoEnMemoria(), reloj, horario };
   const creada = await crearSolicitud(puertos).ejecutar(comando());
   const { id, token } = creada.ok ? creada.valor : { id: "", token: "" };
   const calendario = { ...calendarioEnMemoria(), retirarEvento: vi.fn() };
@@ -181,9 +183,26 @@ it("cancelar-cita sin evento cancela sin intentar retirarlo (RP-F-023)", async (
 
 it("si retirar el evento falla, la cancelación se mantiene con sincronización pendiente (RP-F-023)", async () => {
   const repositorio = repositorioEnMemoria(60);
-  const creada = await crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), reloj, horario }).ejecutar(comando());
+  const creada = await crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(), reloj, horario }).ejecutar(comando());
   const { id, token } = creada.ok ? creada.valor : { id: "", token: "" };
 
   expect(await cancelarCita({ repositorio, calendario: calendarioEnMemoria(true), reloj }).ejecutar({ token })).toEqual({ ok: true, valor: null });
   expect(await repositorio.porId(id)).toMatchObject({ citaEstado: "cancelada", sincronizacion: "pendiente" });
+});
+
+it("crear-solicitud envía al prospecto la confirmación con la hora y su enlace privado", async () => {
+  const correo = correoEnMemoria();
+  const r = await crearSolicitud({ repositorio: repositorioEnMemoria(60), ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo, reloj, horario }).ejecutar(comando());
+
+  expect(correo.enviados).toEqual([
+    { para: "contacto@ejemplo.co", nombre: "Clínica San Rafael", inicio: lunes8, token: r.ok ? r.valor.token : "" },
+  ]);
+});
+
+it("si el correo falla, la solicitud sigue guardada y el caso tiene éxito", async () => {
+  const repositorio = repositorioEnMemoria(60);
+  const r = await crearSolicitud({ repositorio, ocupacion: ocupacionEnMemoria(), calendario: calendarioEnMemoria(), correo: correoEnMemoria(true), reloj, horario }).ejecutar(comando());
+
+  expect(r.ok).toBe(true);
+  expect(r.ok && (await repositorio.porId(r.valor.id))).toMatchObject({ sincronizacion: "ok" });
 });

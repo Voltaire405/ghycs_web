@@ -1,5 +1,5 @@
 import { calcularDisponibilidad, diaEnBogota, limitesDelDia, type HorarioBase } from "../dominio/disponibilidad";
-import type { Calendario, Ocupacion, RepositorioSolicitudes, Reloj } from "../dominio/puertos";
+import type { Calendario, Correo, Ocupacion, RepositorioSolicitudes, Reloj } from "../dominio/puertos";
 import type { Solicitud, SolicitudNueva } from "../dominio/solicitud";
 import { fallo, exito, type Resultado } from "@/compartido/tipos/resultado";
 
@@ -11,11 +11,13 @@ export type ErrorCrearSolicitud = "horario-no-disponible" | "horario-ocupado" | 
  * la que el candado rechaza al guardar (RS-F-007). La solicitud es la fuente de verdad: se guarda
  * `pendiente` y pasa a `ok` solo con el evento creado; si el calendario o esa actualización fallan,
  * queda `pendiente` y el caso tiene éxito igual: la solicitud ya existe (RP-F-010, RP-F-016).
+ * Después sale el correo con el enlace privado; si falla, tampoco revierte nada (RP-F-021).
  */
 export function crearSolicitud(puertos: {
   repositorio: RepositorioSolicitudes;
   ocupacion: Ocupacion;
   calendario: Calendario;
+  correo: Correo;
   reloj: Reloj;
   horario: HorarioBase;
 }) {
@@ -38,6 +40,7 @@ export function crearSolicitud(puertos: {
       const guardada = await puertos.repositorio.guardar(comando);
       if (!guardada) return fallo("horario-ocupado");
 
+      let solicitud = guardada;
       try {
         const eventoId = await puertos.calendario.crearEvento({
           titulo: `Cita GHYCS · ${guardada.nombre}`,
@@ -47,10 +50,22 @@ export function crearSolicitud(puertos: {
         });
         const sincronizada: Solicitud = { ...guardada, eventoId, sincronizacion: "ok" };
         await puertos.repositorio.actualizar(sincronizada);
-        return exito(sincronizada);
+        solicitud = sincronizada;
       } catch {
-        return exito(guardada);
+        // Queda `pendiente`.
       }
+
+      try {
+        await puertos.correo.enviarConfirmacion({
+          para: solicitud.correo,
+          nombre: solicitud.nombre,
+          inicio: solicitud.citaInicio,
+          token: solicitud.token,
+        });
+      } catch {
+        // ponytail: el fallo del correo no queda registrado; el gestor reenvía la confirmación (RP-F-025).
+      }
+      return exito(solicitud);
     },
   };
 }

@@ -1,5 +1,5 @@
 import type { Intervalo } from "../dominio/disponibilidad";
-import type { Calendario, EventoCita, Ocupacion, RepositorioSolicitudes, Reloj } from "../dominio/puertos";
+import type { Calendario, ConfirmacionCita, Correo, EventoCita, Ocupacion, RepositorioSolicitudes, Reloj } from "../dominio/puertos";
 import type { Solicitud, SolicitudNueva } from "../dominio/solicitud";
 
 /**
@@ -37,6 +37,18 @@ export function calendarioEnMemoria(falla = false): Calendario & { eventos: Even
       if (i < 0) return;
       ids.splice(i, 1);
       eventos.splice(i, 1);
+    },
+  };
+}
+
+/** Correo que guarda las confirmaciones enviadas; con `falla` lanza como Resend caído. */
+export function correoEnMemoria(falla = false): Correo & { enviados: ConfirmacionCita[] } {
+  const enviados: ConfirmacionCita[] = [];
+  return {
+    enviados,
+    async enviarConfirmacion(confirmacion) {
+      if (falla) throw new Error("correo no disponible");
+      enviados.push(confirmacion);
     },
   };
 }

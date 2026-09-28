@@ -37,3 +37,5 @@ jobs:
           BETTER_AUTH_SECRET: ci-ci-ci-ci-ci-ci-ci-ci-ci-ci-ci-ci
           BETTER_AUTH_URL: http://localhost:3000
           CORREOS_SOCIOS: ci@ghycs.co
+          RESEND_API_KEY: ci
+          CORREO_REMITENTE: ci@ghycs.co

@@ -24,6 +24,19 @@ export interface Calendario {
   retirarEvento(id: string): Promise<void>;
 }
 
+/** Lo que el prospecto necesita para volver a su cita: la hora y el enlace privado de su token. */
+export interface ConfirmacionCita {
+  para: string;
+  nombre: string;
+  inicio: Date;
+  token: string;
+}
+
+export interface Correo {
+  /** Envía al prospecto la confirmación con la fecha, la hora y el enlace privado. Lanza si falla (RP-F-021). */
+  enviarConfirmacion(confirmacion: ConfirmacionCita): Promise<void>;
+}
+
 export interface RepositorioSolicitudes {
   /** Citas ya agendadas en el rango; también ocupan el horario (RS-F-002). */
   agendadas(desde: Date, hasta: Date): Promise<Intervalo[]>;

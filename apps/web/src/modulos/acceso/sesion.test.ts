@@ -13,6 +13,8 @@ beforeAll(() => {
   vi.stubEnv("BETTER_AUTH_SECRET", "x".repeat(32));
   vi.stubEnv("BETTER_AUTH_URL", "http://localhost:3000");
   vi.stubEnv("CORREOS_SOCIOS", "socia@ghycs.co");
+  vi.stubEnv("RESEND_API_KEY", "re_clave");
+  vi.stubEnv("CORREO_REMITENTE", "GHYCS <citas@ghycs.co>");
 });
 
 const alLogin = { digest: expect.stringMatching(/^NEXT_REDIRECT;.*;\/login;/) };

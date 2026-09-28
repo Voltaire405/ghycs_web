@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS.
 - **Para qué**: asegurar que el prestador tenga su cita con videollamada cuando el sitio no pudo crearla en el calendario.
-- **Estado**: Parcial · Now. El sitio crea el evento solo y marca «Sin sincronizar» cuando no puede; la confirmación de GHYCS por correo, que esta página da por recibida, aún no se envía.
+- **Estado**: Parcial · Now. El sitio crea el evento solo, marca «Sin sincronizar» cuando no puede y envía la confirmación de GHYCS por correo; el reenvío de la confirmación está previsto.
 - **Requisitos**: RP-F-016, RP-F-010, RP-F-021.
 
 ## Qué significa «Sin sincronizar»

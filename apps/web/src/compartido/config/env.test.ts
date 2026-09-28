@@ -8,6 +8,8 @@ const google = {
   BETTER_AUTH_SECRET: "x".repeat(32),
   BETTER_AUTH_URL: "http://localhost:3000",
   CORREOS_SOCIOS: "socia@ghycs.co",
+  RESEND_API_KEY: "re_clave",
+  CORREO_REMITENTE: "GHYCS <citas@ghycs.co>",
 };
 
 describe("leerEnv", () => {
@@ -19,6 +21,8 @@ describe("leerEnv", () => {
   it("aborta con un mensaje que nombra la variable faltante", () => {
     expect(() => leerEnv({})).toThrow(/DATABASE_URL/);
     expect(() => leerEnv({})).toThrow(/GOOGLE_REFRESH_TOKEN/);
+    expect(() => leerEnv({})).toThrow(/RESEND_API_KEY/);
+    expect(() => leerEnv({})).toThrow(/CORREO_REMITENTE/);
   });
 
   it("consulta el calendario principal si no se configura otro", () => {
