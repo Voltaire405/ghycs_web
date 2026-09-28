@@ -21,6 +21,7 @@ export function PaginaPublica({ children }: { children: ReactNode }) {
           <p>GHYCS · Gestores de Habilitación y Calidad en Salud</p>
           <div className="flex flex-wrap items-center gap-4">
             <Link href="/politica-de-datos">Política de tratamiento de datos</Link>
+            <Link href="/login">Acceso del gestor</Link>
           </div>
         </div>
       </footer>

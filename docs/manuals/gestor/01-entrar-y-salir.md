@@ -14,7 +14,7 @@
 
 ## Pasos para entrar
 
-1. Abra la dirección de acceso del gestor: `/login` en el dominio del sitio. Guárdela en favoritos. El sitio público no muestra un enlace a la administración.
+1. En el pie de cualquier página del sitio público, toque **«Acceso del gestor»**. También puede abrir `/login` en el dominio del sitio.
 2. En «Acceso del gestor», toque **«Entrar con Google»**.
 3. Google le muestra sus cuentas. Elija la de GHYCS que está en la lista de acceso. Si Google se lo pide, escriba su contraseña o apruebe la verificación en el celular.
 4. La primera vez, Google le pide permiso para compartir su **nombre, correo y foto de perfil** con el sitio. Acepte. El sitio no pide acceso a su calendario ni a su correo.
