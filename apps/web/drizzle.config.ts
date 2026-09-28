@@ -1,7 +1,7 @@
 import { defineConfig } from "drizzle-kit";
-import { leerEnv } from "./src/compartido/config/env";
+import { leerEnvBd } from "./src/compartido/config/env";
 
-const env = leerEnv();
+const env = leerEnvBd();
 
 export default defineConfig({
   dialect: "turso",

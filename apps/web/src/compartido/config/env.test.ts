@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { leerEnv } from "./env";
+import { leerEnv, leerEnvBd } from "./env";
 
 const google = { GOOGLE_CLIENT_ID: "id", GOOGLE_CLIENT_SECRET: "secreto", GOOGLE_REFRESH_TOKEN: "refresco" };
 
@@ -16,5 +16,9 @@ describe("leerEnv", () => {
 
   it("consulta el calendario principal si no se configura otro", () => {
     expect(leerEnv({ ...google, DATABASE_URL: "file:local.db", GOOGLE_CALENDAR_ID: "" }).GOOGLE_CALENDAR_ID).toBe("primary");
+  });
+
+  it("las migraciones solo exigen la base de datos", () => {
+    expect(leerEnvBd({ DATABASE_URL: "file:local.db" }).DATABASE_URL).toBe("file:local.db");
   });
 });

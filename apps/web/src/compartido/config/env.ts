@@ -4,10 +4,13 @@ import { z } from "zod";
  * Solo se exigen las variables que ya tienen consumidor (RS-NF-014). Cada adaptador nuevo
  * agrega aquí las suyas: Resend y el acceso del gestor aún no las leen.
  */
-const esquema = z.object({
+const esquemaBd = z.object({
   DATABASE_URL: z.string().min(1),
   // Vacía en `.env.example`: una base local no lleva token.
   DATABASE_AUTH_TOKEN: z.string().optional().transform((v) => v || undefined),
+});
+
+const esquema = esquemaBd.extend({
   // FreeBusy del calendario del gestor (ADR-0004).
   GOOGLE_CLIENT_ID: z.string().min(1),
   GOOGLE_CLIENT_SECRET: z.string().min(1),
@@ -19,6 +22,15 @@ export type Env = z.infer<typeof esquema>;
 
 /** Valida el entorno y lanza con un mensaje que nombra cada variable faltante o inválida (RS-NF-014). */
 export function leerEnv(fuente: Record<string, string | undefined> = process.env): Env {
+  return validar(esquema, fuente);
+}
+
+/** Solo la base de datos: lo que necesitan las migraciones, que no consultan Google. */
+export function leerEnvBd(fuente: Record<string, string | undefined> = process.env) {
+  return validar(esquemaBd, fuente);
+}
+
+function validar<T extends z.ZodType>(esquema: T, fuente: Record<string, string | undefined>): z.infer<T> {
   const r = esquema.safeParse(fuente);
   if (r.success) return r.data;
   const detalle = r.error.issues.map((i) => `  - ${i.path.join(".")}: ${i.message}`).join("\n");
