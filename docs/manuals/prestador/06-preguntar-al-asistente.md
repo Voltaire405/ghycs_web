@@ -2,12 +2,12 @@
 
 - **Quién**: visitante del sitio.
 - **Para qué**: resolver dudas sobre los servicios de GHYCS sin esperar la cita.
-- **Estado**: Previsto · Later.
+- **Estado**: Parcial · Later. El asistente funciona en todas las páginas públicas y responde con lo que dicen estos manuales; el límite de preguntas por visitante está previsto.
 - **Requisitos**: RP-F-017, RP-F-018, RP-F-019, RP-R-003, RP-NF-001.
 
 ## Qué responde y qué no
 
-El asistente responde **solo sobre la oferta de GHYCS**: qué incluye la asesoría, el acompañamiento y el PAMEC, a quién atiende GHYCS, cómo funciona la cita. Usa únicamente lo que GHYCS escribió.
+El asistente responde **solo sobre la oferta de GHYCS**: qué incluye la asesoría, el acompañamiento y el PAMEC, a quién atiende GHYCS, cómo funciona la cita. Usa únicamente lo que GHYCS escribió en estos manuales.
 
 No hace lo siguiente, y en esos casos le propone agendar una cita:
 
@@ -18,10 +18,10 @@ No hace lo siguiente, y en esos casos le propone agendar una cita:
 
 ## Pasos
 
-1. Abra el asistente. **⚠ Por definir**: dónde aparece (botón flotante, página propia) y con qué texto.
-2. Escriba su pregunta, por ejemplo: «¿Qué incluye el acompañamiento?».
+1. Toque el botón **«¿Preguntas?»**, abajo a la derecha de cualquier página pública. Se abre el «Asistente de GHYCS» con un saludo.
+2. Escriba su pregunta en «Escriba su pregunta», por ejemplo: «¿Qué incluye el acompañamiento?», y toque «Enviar». Mientras responde verá «Escribiendo…».
 3. Lea la respuesta. Puede seguir preguntando.
-4. Si la respuesta lo invita a agendar, toque el enlace a «Agende su cita» y siga [Agendar una cita](02-agendar-una-cita.md).
+4. Si la respuesta lo invita a agendar, toque «Agende su cita» al pie del asistente y siga [Agendar una cita](02-agendar-una-cita.md). Para cerrarlo, toque «×» o «Cerrar».
 
 ## Caminos alternativos y problemas
 
@@ -29,7 +29,7 @@ No hace lo siguiente, y en esos casos le propone agendar una cita:
 |---|---|---|
 | El asistente no responde su pregunta y le sugiere agendar | La pregunta requiere revisar su caso o interpretar la norma: eso se hace en la cita. | Agende la cita y escriba la pregunta en la descripción. |
 | Le avisa que alcanzó el límite de preguntas | GHYCS limita las preguntas por visitante. **⚠ Por definir**: el límite y el texto del aviso. | Agende la cita o vuelva más tarde. |
-| El asistente no aparece o no responde | GHYCS lo apagó o su proveedor falló. El resto del sitio sigue funcionando. | Lea las páginas de servicios o agende la cita. |
+| «El asistente no está disponible ahora. Puede agendar su cita y resolver sus dudas en ella.» | GHYCS lo apagó o su proveedor falló. El resto del sitio sigue funcionando. | Lea las páginas de servicios o agende la cita. |
 | Quiere que el asistente le agende | No agenda, por diseño. | Use «Agende su cita»: son dos toques. |
 
 **⚠ Por definir**: si se avisa al visitante que GHYCS puede leer sus conversaciones (RP-F-020) y si eso requiere su autorización.

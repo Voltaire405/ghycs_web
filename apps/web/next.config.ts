@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const csp = [
@@ -14,6 +15,9 @@ const csp = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  // El asistente lee los manuales del prestador en tiempo de ejecución: viajan con su función.
+  outputFileTracingRoot: path.join(__dirname, "../.."),
+  outputFileTracingIncludes: { "/api/asistente": ["../../docs/manuals/prestador/*.md"] },
   async headers() {
     return [
       {

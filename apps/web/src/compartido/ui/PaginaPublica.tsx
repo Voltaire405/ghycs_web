@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { Asistente } from "./Asistente";
 
 /** Barra de navegación y pie comunes a toda página pública (RS-F-036). */
 export function PaginaPublica({ children }: { children: ReactNode }) {
@@ -28,6 +29,7 @@ export function PaginaPublica({ children }: { children: ReactNode }) {
           </div>
         </div>
       </footer>
+      <Asistente />
     </>
   );
 }

@@ -31,7 +31,7 @@ Los textos entre comillas «así» son los que se ven en pantalla. Donde la plan
 | 3 | [Recibir la invitación y asistir a la cita](prestador/03-asistir-a-la-cita.md) | Parcial · Now |
 | 4 | [Consultar o cancelar su cita](prestador/04-consultar-o-cancelar-su-cita.md) | Parcial · Now |
 | 5 | [Conocer y ejercer sus derechos sobre sus datos](prestador/05-sus-datos-personales.md) | Parcial · Now |
-| 6 | [Preguntar al asistente](prestador/06-preguntar-al-asistente.md) | Previsto · Later |
+| 6 | [Preguntar al asistente](prestador/06-preguntar-al-asistente.md) | Parcial · Later |
 
 ### Gestor
 
