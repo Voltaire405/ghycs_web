@@ -21,3 +21,8 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm build
+        # Sin credenciales reales: el build solo valida el entorno. Fuera de `pnpm test`, para que la suite contra Google se omita.
+        env:
+          GOOGLE_CLIENT_ID: ci
+          GOOGLE_CLIENT_SECRET: ci
+          GOOGLE_REFRESH_TOKEN: ci

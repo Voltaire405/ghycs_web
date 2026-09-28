@@ -2,12 +2,17 @@ import { z } from "zod";
 
 /**
  * Solo se exigen las variables que ya tienen consumidor (RS-NF-014). Cada adaptador nuevo
- * agrega aquí las suyas: Google, Resend y el acceso del gestor aún no las leen.
+ * agrega aquí las suyas: Resend y el acceso del gestor aún no las leen.
  */
 const esquema = z.object({
   DATABASE_URL: z.string().min(1),
   // Vacía en `.env.example`: una base local no lleva token.
   DATABASE_AUTH_TOKEN: z.string().optional().transform((v) => v || undefined),
+  // FreeBusy del calendario del gestor (ADR-0004).
+  GOOGLE_CLIENT_ID: z.string().min(1),
+  GOOGLE_CLIENT_SECRET: z.string().min(1),
+  GOOGLE_REFRESH_TOKEN: z.string().min(1),
+  GOOGLE_CALENDAR_ID: z.string().optional().transform((v) => v || "primary"),
 });
 
 export type Env = z.infer<typeof esquema>;

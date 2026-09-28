@@ -44,7 +44,7 @@ Los textos entre comillas «así» son los que se ven en pantalla. Donde la plan
 | 5 | [Cerrar una cita](gestor/05-cerrar-una-cita.md) | Parcial · Now |
 | 6 | [Registrar notas de una solicitud](gestor/06-registrar-notas.md) | Disponible · Now |
 | 7 | [Retomar una solicitud con la cita cancelada](gestor/07-retomar-una-solicitud-cancelada.md) | Parcial · Now |
-| 8 | [Bloquear su tiempo para que no le agenden](gestor/08-bloquear-su-tiempo.md) | Previsto · Now |
+| 8 | [Bloquear su tiempo para que no le agenden](gestor/08-bloquear-su-tiempo.md) | Disponible · Now |
 | 9 | [Administrar el asistente](gestor/09-administrar-el-asistente.md) | Previsto · Later |
 | 10 | [Reenviar el enlace privado y corregir el correo](gestor/10-reenviar-el-enlace-privado.md) | Previsto · Now |
 

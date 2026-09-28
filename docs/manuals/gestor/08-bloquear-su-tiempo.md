@@ -2,7 +2,7 @@
 
 - **Quién**: socio de GHYCS dueño del calendario donde se agendan las citas.
 - **Para qué**: que el sitio no ofrezca horas en las que usted tiene otro compromiso.
-- **Estado**: Previsto · Now. Hoy el sitio usa una ocupación de ejemplo; está previsto leer el calendario real.
+- **Estado**: Disponible · Now. El sitio lee la ocupación del Google Calendar configurado.
 - **Requisitos**: RP-F-007, RC-3 (ADR-0004).
 
 ## Cómo decide el sitio qué horas ofrecer

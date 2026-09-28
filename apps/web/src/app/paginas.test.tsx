@@ -16,6 +16,8 @@ import Admin from "./(gestor)/admin/page";
 import Detalle from "./(gestor)/admin/solicitudes/[id]/page";
 
 // Las páginas se renderizan sobre el falso sembrado con una solicitud por estado, sin base de datos.
+// `calendario.falla` simula FreeBusy caído.
+const calendario = vi.hoisted(() => ({ falla: false }));
 vi.mock("@/modulos/solicitudes/componer", async () => {
   const { componerCasos } = await import("@/modulos/solicitudes/casos");
   const { ocupacionEnMemoria, relojDelSistema, repositorioEnMemoria } = await import(
@@ -25,7 +27,10 @@ vi.mock("@/modulos/solicitudes/componer", async () => {
   const { solicitudesDeMuestra } = await import("@/modulos/solicitudes/infraestructura/muestra");
   const horario = leerHorarioBase({});
   const repositorio = repositorioEnMemoria(horario.duracionMinutos, solicitudesDeMuestra(new Date()));
-  return { casos: componerCasos({ ocupacion: ocupacionEnMemoria(), repositorio, reloj: relojDelSistema, horario }) };
+  const ocupacion = {
+    consultar: (desde: Date, hasta: Date) => ocupacionEnMemoria([], calendario.falla).consultar(desde, hasta),
+  };
+  return { casos: componerCasos({ ocupacion, repositorio, reloj: relojDelSistema, horario }) };
 });
 // Fuera de una petición `connection()` lanza; aquí no hay prerender que evitar.
 vi.mock("next/server", async (original) => ({ ...(await original<object>()), connection: async () => {} }));
@@ -150,4 +155,17 @@ it("ningún archivo de src tiene valores hexadecimales (RS-NF-007)", () => {
     .map(String)
     .filter((f) => /\.(tsx?|css)$/.test(f) && /#[0-9a-f]{3,8}\b/i.test(readFileSync(`src/${f}`, "utf8")));
   expect(conHex).toEqual([]);
+});
+
+it("con el calendario caído /solicitar no ofrece horas y muestra el aviso (RS-F-009)", async () => {
+  calendario.falla = true;
+  try {
+    const html = renderToStaticMarkup(
+      await Solicitar({ searchParams: Promise.resolve({ fecha: "2026-09-07" }), params: Promise.resolve({}) }),
+    );
+    expect(html).toContain("No es posible consultar la disponibilidad ahora. Intente más tarde.");
+    expect(html).not.toContain('name="nombre"');
+  } finally {
+    calendario.falla = false;
+  }
 });
