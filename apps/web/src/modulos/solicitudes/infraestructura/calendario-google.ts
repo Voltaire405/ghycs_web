@@ -40,9 +40,9 @@ export function calendarioGoogle(
       const acceso = await tokenDeAcceso(credenciales, fetch);
       const url = new URL(`${urlCalendario(credenciales.calendarId)}/events/${encodeURIComponent(id)}`);
       url.searchParams.set("sendUpdates", enviarInvitaciones ? "all" : "none");
-      await okOLanza(
-        await fetch(url, { method: "DELETE", signal: limite(), headers: { authorization: `Bearer ${acceso}` } }),
-      );
+      const respuesta = await fetch(url, { method: "DELETE", signal: limite(), headers: { authorization: `Bearer ${acceso}` } });
+      // 404 y 410: el evento ya no existe (p. ej., el gestor lo borró a mano); el retiro está cumplido.
+      if (respuesta.status !== 404 && respuesta.status !== 410) await okOLanza(respuesta);
     },
   };
 }

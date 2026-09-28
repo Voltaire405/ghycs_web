@@ -32,8 +32,9 @@ export function calendarioEnMemoria(falla = false): Calendario & { eventos: Even
       return ids.at(-1)!;
     },
     async retirarEvento(id) {
+      if (falla) throw new Error("calendario no disponible");
       const i = ids.indexOf(id);
-      if (falla || i < 0) throw new Error("calendario no disponible o evento inexistente");
+      if (i < 0) return;
       ids.splice(i, 1);
       eventos.splice(i, 1);
     },

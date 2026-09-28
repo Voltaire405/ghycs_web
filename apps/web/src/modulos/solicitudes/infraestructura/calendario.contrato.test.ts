@@ -60,12 +60,12 @@ describe.each(implementaciones)("Calendario %s", (_nombre, omitir, crear, crearF
     await expect(crearFallando().crearEvento(evento)).rejects.toThrow();
   }, 30_000);
 
-  it.skipIf(omitir)("retira un evento creado; retirarlo de nuevo lanza", async () => {
+  it.skipIf(omitir)("retira un evento creado; retirarlo de nuevo no falla", async () => {
     const calendario = crear();
     const id = await calendario.crearEvento(evento);
     creados.push(id);
     await calendario.retirarEvento(id);
-    await expect(calendario.retirarEvento(id)).rejects.toThrow();
+    await calendario.retirarEvento(id);
   }, 30_000);
 
   it.skipIf(omitir)("lanza si el retiro falla", async () => {
@@ -117,8 +117,13 @@ describe("calendarioGoogle sin red", () => {
     expect(new Headers(init?.headers).get("authorization")).toBe("Bearer acceso");
   });
 
+  it("da por retirado un evento que Google ya no tiene", async () => {
+    await googleSimulado(404).calendario.retirarEvento("evt-1");
+    await googleSimulado(410).calendario.retirarEvento("evt-1");
+  });
+
   it("lanza si Google rechaza el retiro", async () => {
-    await expect(googleSimulado(410).calendario.retirarEvento("evt-1")).rejects.toThrow(/410/);
+    await expect(googleSimulado(403).calendario.retirarEvento("evt-1")).rejects.toThrow(/403/);
   });
 
   it("lanza si Google responde con error", async () => {

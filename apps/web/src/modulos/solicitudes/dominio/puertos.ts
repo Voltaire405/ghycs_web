@@ -20,7 +20,7 @@ export interface Calendario {
   /** Crea el evento con videollamada e invita al prospecto; devuelve su identificador. Lanza si falla (RP-F-010). */
   crearEvento(evento: EventoCita): Promise<string>;
 
-  /** Retira el evento y avisa al prospecto de la cancelación. Lanza si falla o si el evento no existe (RP-F-023). */
+  /** Retira el evento y avisa al prospecto de la cancelación. Si el evento ya no existe, cuenta como retirado. Lanza si falla (RP-F-023). */
   retirarEvento(id: string): Promise<void>;
 }
 
